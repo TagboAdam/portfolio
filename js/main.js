@@ -1,10 +1,16 @@
 /* ==========================================================================
-   main.js — page shell behaviour (Phase 3)
-   Phase 5 adds project rendering, Phase 8 adds the theme toggle.
+   main.js — page behaviour
+   Mobile nav, header elevation, hero typing effect, scroll reveal,
+   UTC status-bar clock and footer year. Vanilla JS, no dependencies.
+   Every animation is skipped when the user prefers reduced motion.
    ========================================================================== */
 
 (function () {
   "use strict";
+
+  var prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".nav-toggle");
@@ -68,5 +74,86 @@
 
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
+  }
+
+  /* --- Hero typing effect ------------------------------------------------ */
+  /* The full sentence is already in the markup, so the page is readable
+     without JS; we only reset and retype it when motion is welcome. */
+  var typingTarget = document.querySelector("[data-typing]");
+
+  if (typingTarget && !prefersReducedMotion) {
+    var fullText = typingTarget.getAttribute("data-typing") || "";
+
+    if (fullText.length) {
+      var index = 0;
+      typingTarget.textContent = "";
+
+      var typeNextCharacter = function () {
+        index += 1;
+        typingTarget.textContent = fullText.slice(0, index);
+
+        if (index < fullText.length) {
+          window.setTimeout(typeNextCharacter, 45);
+        }
+      };
+
+      window.setTimeout(typeNextCharacter, 400);
+    }
+  }
+
+  /* --- Fade sections in as they enter the viewport ----------------------- */
+  var revealItems = document.querySelectorAll(".reveal");
+
+  if (revealItems.length) {
+    if ("IntersectionObserver" in window && !prefersReducedMotion) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      );
+
+      revealItems.forEach(function (item) {
+        observer.observe(item);
+      });
+    } else {
+      revealItems.forEach(function (item) {
+        item.classList.add("is-visible");
+      });
+    }
+  }
+
+  /* --- Status-bar clock -------------------------------------------------- */
+  var clock = document.getElementById("clock");
+
+  function pad(value) {
+    return value < 10 ? "0" + value : String(value);
+  }
+
+  function updateClock() {
+    var now = new Date();
+    clock.textContent =
+      pad(now.getUTCHours()) +
+      ":" +
+      pad(now.getUTCMinutes()) +
+      ":" +
+      pad(now.getUTCSeconds()) +
+      " UTC";
+  }
+
+  if (clock) {
+    updateClock();
+    window.setInterval(updateClock, 1000);
+  }
+
+  /* --- Footer year ------------------------------------------------------- */
+  var year = document.getElementById("year");
+
+  if (year) {
+    year.textContent = String(new Date().getFullYear());
   }
 })();

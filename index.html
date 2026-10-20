@@ -1,50 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adam — Front-end Developer</title>
+    <title>Adam — Aspiring AI/Software Engineer</title>
     <meta
       name="description"
-      content="Portfolio of Adam, a front-end developer building fast, accessible web interfaces.">
+      content="Adam is an aspiring AI/software engineer building AI-powered applications with Python, FastAPI and React. Portfolio, projects and contact details."
+    />
 
-    <meta
-      name="theme-color"
-      content="#fbfaf7"
-      media="(prefers-color-scheme: light)">
-    <meta
-      name="theme-color"
-      content="#101216"
-      media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#0d1117" />
 
-    <!-- Temporary inline monogram favicon; replaced by assets/ in Phase 9 -->
+    <!-- Terminal-prompt favicon, drawn inline so it can never 404 -->
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='Arial,Helvetica,sans-serif' font-size='15' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M8 11l4 5-4 5' fill='none' stroke='%2339d353' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 21h8' stroke='%2339d353' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+    />
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/tokens.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
+    <!-- Flag JS early so reveal animations never cause a flash of hidden copy -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <script src="js/main.js" defer></script>
   </head>
 
   <body id="top">
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <!-- ===================== Fake terminal status bar ===================== -->
+    <div class="statusbar">
+      <p class="statusbar__item statusbar__item--shell">
+        <span aria-hidden="true">adam@portfolio:~$</span>
+        <span class="visually-hidden">Adam's portfolio</span>
+      </p>
+
+      <p class="statusbar__item statusbar__item--status">
+        <span class="dot" aria-hidden="true"></span>
+        System Status: Online
+      </p>
+
+      <p
+        class="statusbar__item statusbar__item--clock"
+        id="clock"
+        aria-hidden="true"
+      >
+        --:--:-- UTC
+      </p>
+    </div>
+
     <!-- ===================== Header / navigation ===================== -->
     <header class="site-header">
       <div class="container header__inner">
         <a class="brand" href="#top" aria-label="Adam — back to top">
-          <span class="brand__mark" aria-hidden="true">A</span>
-          <span class="brand__name">Adam</span>
+          <span class="brand__prompt" aria-hidden="true">~</span>
+          <span class="brand__name"
+            >adam<span class="brand__caret" aria-hidden="true">_</span></span
+          >
         </a>
 
         <button
@@ -60,131 +83,343 @@
 
         <nav class="site-nav" id="site-nav" aria-label="Primary">
           <ul class="site-nav__list">
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a href="#projects">
+                <span class="nav__prefix" aria-hidden="true">./</span>projects
+              </a>
+            </li>
+            <li>
+              <a href="#about">
+                <span class="nav__prefix" aria-hidden="true">./</span>about
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/TagboAdam"
+                target="_blank"
+                rel="noopener me"
+              >
+                <span class="nav__prefix" aria-hidden="true">./</span>github
+              </a>
+            </li>
             <li class="site-nav__cta">
-              <!-- TODO (Phase 0): drop your PDF at assets/resume.pdf -->
-              <a class="btn btn--primary btn--sm" href="assets/resume.pdf">
-                Résumé
+              <a
+                class="btn btn--primary btn--sm"
+                href="assets/resume.pdf"
+                target="_blank"
+                rel="noopener"
+              >
+                [ resume.pdf ]
               </a>
             </li>
           </ul>
         </nav>
       </div>
     </header>
-
     <main id="main" tabindex="-1">
       <!-- ===================== Hero ===================== -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="container hero__inner">
           <div class="hero__content">
-            <p class="eyebrow">Available for internships</p>
+            <p class="eyebrow reveal">// hello_world</p>
 
-            <h1 class="hero__title" id="hero-title">
-              I'm Adam — I build
-              <span class="accent">fast, accessible</span> web interfaces.
+            <h1 class="hero__title reveal" id="hero-title">
+              Hi, I'm <span class="accent">Adam.</span>
             </h1>
 
-            <p class="hero__lead">
-              Front-end developer and computer science student. I care about
-              clean markup, considered typography, and interfaces that stay out
-              of the way.
+            <p
+              class="hero__role reveal"
+              aria-label="Aspiring AI/Software Engineer"
+            >
+              <span class="prompt" aria-hidden="true">&gt;</span>
+              <span class="hero__role-text" data-typing="Aspiring AI/Software Engineer"
+                >Aspiring AI/Software Engineer</span
+              ><span class="cursor" aria-hidden="true"></span>
             </p>
 
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#projects">View projects</a>
-              <a class="btn btn--ghost" href="assets/resume.pdf">
-                Download résumé
+            <p class="hero__lead reveal">
+              I build AI-powered applications and craft clean, modern UIs. I love
+              experimenting with new tech, from Python backends to React
+              animations.
+            </p>
+
+            <div class="hero__actions reveal">
+              <a
+                class="btn btn--primary"
+                href="https://github.com/TagboAdam"
+                target="_blank"
+                rel="noopener me"
+                >[ View My GitHub ]</a
+              >
+              <a
+                class="btn btn--ghost"
+                href="assets/resume.pdf"
+                target="_blank"
+                rel="noopener"
+              >
+                [ Read My Resume ]
               </a>
             </div>
 
-            <ul class="hero__meta">
-              <li>Front-end &amp; UI</li>
-              <li>Open to remote</li>
+            <ul class="hero__meta reveal">
+              <li>Python &amp; FastAPI</li>
+              <li>React</li>
+              <li>Open to internships</li>
             </ul>
           </div>
 
-          <div class="hero__visual">
-            <!-- Phase 4: replace with a real portrait or CSS monogram -->
-            <div class="hero__portrait placeholder">
-              <span class="placeholder__label">Phase 4</span>
-              <p>Portrait or monogram</p>
+          <div class="hero__visual reveal">
+            <div
+              class="terminal"
+              role="img"
+              aria-label="Terminal window: Adam is an aspiring AI and software engineer working with Python, FastAPI and React, currently building Remi. Status: online."
+            >
+              <div class="terminal__bar">
+                <span class="terminal__dots" aria-hidden="true"
+                  ><i></i><i></i><i></i
+                ></span>
+                <span class="terminal__path">adam@portfolio: ~/profile</span>
+              </div>
+
+              <pre class="terminal__body"><span class="term-prompt">$</span> whoami
+adam
+
+<span class="term-prompt">$</span> cat ~/profile.json
+{
+  "role": "Aspiring AI/Software Engineer",
+  "focus": ["AI apps", "clean UI"],
+  "stack": ["Python", "FastAPI", "React"],
+  "building": "Remi",
+  "status": "online"
+}
+
+<span class="term-prompt">$</span> <span class="cursor cursor--inline" aria-hidden="true"></span></pre>
             </div>
           </div>
         </div>
       </section>
-
       <!-- ===================== Projects ===================== -->
       <section class="section" id="projects" aria-labelledby="projects-title">
         <div class="container">
-          <div class="section__header">
-            <p class="section__kicker">01 — Selected work</p>
+          <div class="section__header reveal">
+            <p class="section__kicker">~/projects</p>
             <h2 class="section__title" id="projects-title">Projects</h2>
             <p class="section__lead">
-              A few things I have designed and built. Every card will link to
-              the live site and its source.
+              Two builds I keep coming back to — one shipped assistant, one final
+              year project.
             </p>
           </div>
 
-          <div class="placeholder">
-            <span class="placeholder__label">Phase 5</span>
-            <p>
-              The project grid lands here: screenshot, one-line summary, tech
-              tags, and live / repository links.
-            </p>
-            <p>
-              Cards render from <code>js/projects.js</code>, so adding a project
-              is one object rather than hand-edited markup.
-            </p>
+          <div class="terminal terminal--work reveal">
+            <div class="terminal__bar">
+              <span class="terminal__dots" aria-hidden="true"
+                ><i></i><i></i><i></i
+              ></span>
+              <span class="terminal__path">adam@portfolio: ~/projects</span>
+              <span class="terminal__badge">2 entries</span>
+            </div>
+
+            <div class="terminal__body terminal__body--flush">
+              <!-- Decorative directory listing -->
+              <div class="listing" aria-hidden="true">
+                <p class="listing__row">
+                  <span class="listing__mode">drwxr-xr-x</span>
+                  <span class="listing__name">remi/</span>
+                  <span class="listing__desc">Telegram reminder assistant</span>
+                  <span class="listing__meta">FastAPI + React</span>
+                </p>
+                <p class="listing__row">
+                  <span class="listing__mode">drwxr-xr-x</span>
+                  <span class="listing__name">campusconnect/</span>
+                  <span class="listing__desc">AI-powered LMS</span>
+                  <span class="listing__meta">EdTech</span>
+                </p>
+              </div>
+
+              <div class="project-grid">
+                <!-- Project 1 -->
+                <article class="project">
+                  <a
+                    class="project__thumb"
+                    href="https://github.com/TagboAdam"
+                    target="_blank"
+                    rel="noopener"
+                    tabindex="-1"
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="assets/img/project-remi.svg"
+                      alt=""
+                      width="1200"
+                      height="800"
+                      loading="lazy"
+                    />
+                  </a>
+
+                  <div class="project__body">
+                    <p class="project__index">01</p>
+                    <h3 class="project__title">
+                      <span class="prompt" aria-hidden="true">&gt;</span>
+                      Reminder Assistant (Remi)
+                    </h3>
+                    <p class="project__desc">
+                      A Python/FastAPI backend that uses AI to parse user chat
+                      inputs and schedule recurring reminders via Telegram.
+                      Features a clean React/Vite frontend with Framer Motion
+                      animations.
+                    </p>
+
+                    <ul class="tags" aria-label="Tech used for Remi">
+                      <li class="tag">Python</li>
+                      <li class="tag">FastAPI</li>
+                      <li class="tag">React</li>
+                      <li class="tag">Vite</li>
+                      <li class="tag">TailwindCSS</li>
+                      <li class="tag">Telegram API</li>
+                    </ul>
+
+                    <a
+                      class="project__link"
+                      href="https://github.com/TagboAdam"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      [ view source ]
+                    </a>
+                  </div>
+                </article>
+                <!-- Project 2 -->
+                <article class="project">
+                  <a
+                    class="project__thumb"
+                    href="https://github.com/TagboAdam"
+                    target="_blank"
+                    rel="noopener"
+                    tabindex="-1"
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="assets/img/project-campusconnect.svg"
+                      alt=""
+                      width="1200"
+                      height="800"
+                      loading="lazy"
+                    />
+                  </a>
+
+                  <div class="project__body">
+                    <p class="project__index">02</p>
+                    <h3 class="project__title">
+                      <span class="prompt" aria-hidden="true">&gt;</span>
+                      CampusConnect
+                      <span class="project__flag">FYP</span>
+                    </h3>
+                    <p class="project__desc">
+                      An AI-powered Learning Management System (LMS) designed to
+                      make life easier for students and teachers. Built with a
+                      FastAPI backend and a React frontend.
+                    </p>
+
+                    <ul class="tags" aria-label="Tech used for CampusConnect">
+                      <li class="tag">Python</li>
+                      <li class="tag">FastAPI</li>
+                      <li class="tag">React</li>
+                      <li class="tag">AI</li>
+                      <li class="tag">EdTech</li>
+                    </ul>
+
+                    <a
+                      class="project__link"
+                      href="https://github.com/TagboAdam"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      [ view source ]
+                    </a>
+                  </div>
+                </article>
+              </div>
+              <div class="projects__cta">
+                <p class="projects__cta-text">
+                  <span class="term-prompt" aria-hidden="true">$</span>
+                  View all my repos on GitHub:
+                  <a
+                    href="https://github.com/TagboAdam"
+                    target="_blank"
+                    rel="noopener me"
+                    >github.com/TagboAdam</a
+                  >
+                </p>
+                <a
+                  class="btn btn--ghost btn--sm"
+                  href="https://github.com/TagboAdam"
+                  target="_blank"
+                  rel="noopener me"
+                  >[ browse repos ]</a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      <!-- ===================== About ===================== -->
+      <!-- ===================== About / tech stack ===================== -->
       <section class="section" id="about" aria-labelledby="about-title">
         <div class="container">
-          <div class="section__header">
-            <p class="section__kicker">02 — Background</p>
-            <h2 class="section__title" id="about-title">About</h2>
+          <div class="section__header reveal">
+            <p class="section__kicker">~/about</p>
+            <h2 class="section__title" id="about-title">About me</h2>
             <p class="section__lead">
-              Where I study, what I am working on right now, and what I want to
-              build next.
+              What I build with, and the way I like to build it.
             </p>
           </div>
 
-          <div class="placeholder">
-            <span class="placeholder__label">Phase 6</span>
-            <p>
-              Two-column bio plus skills grouped by languages, frameworks and
-              tools.
-            </p>
-          </div>
-        </div>
-      </section>
+          <div class="about-grid">
+            <div class="terminal reveal">
+              <div class="terminal__bar">
+                <span class="terminal__dots" aria-hidden="true"
+                  ><i></i><i></i><i></i
+                ></span>
+                <span class="terminal__path">adam@portfolio: ~/stack</span>
+              </div>
 
-      <!-- ===================== Contact ===================== -->
-      <section class="section" id="contact" aria-labelledby="contact-title">
-        <div class="container">
-          <div class="section__header">
-            <p class="section__kicker">03 — Contact</p>
-            <h2 class="section__title" id="contact-title">Get in touch</h2>
-            <p class="section__lead">
-              Email is the fastest way to reach me. I usually reply within a
-              day.
-            </p>
-          </div>
+              <div class="terminal__body">
+                <p class="term-line">
+                  <span class="term-prompt" aria-hidden="true">$</span>
+                  cat stack.txt
+                </p>
 
-          <div class="placeholder">
-            <span class="placeholder__label">Phase 7</span>
-            <p>
-              Contact form (or a mailto CTA) with inline validation and spam
-              protection.
-            </p>
-            <p>
-              For now:
-              <a href="mailto:adam.tagbo@gmail.com">adam.tagbo@gmail.com</a>
-            </p>
+                <dl class="stack">
+                  <div class="stack__row">
+                    <dt><span aria-hidden="true">&gt; </span>Backend</dt>
+                    <dd>Python, FastAPI</dd>
+                  </div>
+                  <div class="stack__row">
+                    <dt><span aria-hidden="true">&gt; </span>Frontend</dt>
+                    <dd>JavaScript, React, TailwindCSS</dd>
+                  </div>
+                  <div class="stack__row">
+                    <dt><span aria-hidden="true">&gt; </span>Languages</dt>
+                    <dd>Python, JavaScript, Java</dd>
+                  </div>
+                  <div class="stack__row">
+                    <dt><span aria-hidden="true">&gt; </span>Currently</dt>
+                    <dd>Building Remi &amp; CampusConnect</dd>
+                  </div>
+                </dl>
+
+                <p class="term-line term-line--muted">
+                  <span class="term-prompt" aria-hidden="true">$</span>
+                  echo "always shipping"
+                </p>
+              </div>
+            </div>
+
+            <figure class="quote reveal">
+              <blockquote class="quote__body">
+                <p>I don't just build APIs; I build experiences.</p>
+              </blockquote>
+              <figcaption class="quote__by">— Adam</figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -193,29 +428,42 @@
     <!-- ===================== Footer ===================== -->
     <footer class="site-footer">
       <div class="container footer__inner">
-        <p>© 2026 Adam. Built with plain HTML, CSS and JavaScript.</p>
+        <div class="footer__brand">
+          <p class="footer__prompt">
+            adam@portfolio:~$ <span class="footer__command">exit</span>
+          </p>
+          <p class="footer__note">
+            © <span id="year">2026</span> Adam. Built with plain HTML, CSS and
+            JavaScript.
+          </p>
+        </div>
 
-        <ul class="footer__links">
+        <ul class="footer__links" aria-label="Find me online">
           <li>
-            <a href="https://github.com/your-username" rel="noopener me">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/your-profile"
-              rel="noopener me"
+            <a href="https://github.com/TagboAdam" target="_blank" rel="noopener me"
+              >github</a
             >
-              LinkedIn
-            </a>
           </li>
           <li>
-            <a href="mailto:adam.tagbo@gmail.com">Email</a>
+            <!-- TODO: replace with your LinkedIn profile URL -->
+            <a
+              href="https://www.linkedin.com/in/"
+              target="_blank"
+              rel="noopener me"
+              >linkedin</a
+            >
           </li>
-          <li><a href="#top">Back to top</a></li>
+          <li>
+            <a href="mailto:adam.tagbo@gmail.com">email</a>
+          </li>
+          <li><a href="#top">back_to_top</a></li>
         </ul>
+
+        <p class="footer__status">
+          <span class="dot" aria-hidden="true"></span>
+          [ System Status: Online ]
+        </p>
       </div>
     </footer>
   </body>
 </html>
-

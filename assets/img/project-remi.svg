@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="remi-title remi-desc">
+  <title id="remi-title">Remi — Telegram reminder assistant</title>
+  <desc id="remi-desc">A dark terminal window showing a chat in which the user asks Remi to schedule a recurring reminder and the bot confirms it, with a FastAPI and React status label.</desc>
+
+  <defs>
+    <pattern id="remi-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#c9d1d9" stroke-opacity="0.04" stroke-width="1" />
+    </pattern>
+    <radialGradient id="remi-glow" cx="85%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#39d353" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#39d353" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0d1117" />
+  <rect width="1200" height="800" fill="url(#remi-grid)" />
+  <rect width="1200" height="800" fill="url(#remi-glow)" />
+
+  <!-- window -->
+  <rect x="48" y="48" width="1104" height="704" rx="18" fill="#161b22" stroke="#30363d" stroke-width="2" />
+  <line x1="48" y1="112" x2="1152" y2="112" stroke="#21262d" stroke-width="2" />
+  <circle cx="84" cy="80" r="6" fill="#ff5f56" />
+  <circle cx="106" cy="80" r="6" fill="#ffbd2e" />
+  <circle cx="128" cy="80" r="6" fill="#27c93f" />
+  <text x="160" y="87" font-family="'Fira Code', ui-monospace, monospace" font-size="20" fill="#8b949e">remi@telegram: ~/reminders</text>
+  <text x="1128" y="87" text-anchor="end" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#39d353">online</text>
+
+  <!-- session prompt -->
+  <text x="96" y="160" font-family="'Fira Code', ui-monospace, monospace" font-size="18" fill="#8b949e">
+    <tspan fill="#39d353">$</tspan>
+    <tspan> python -m remi.bot --status</tspan>
+  </text>
+  <text x="96" y="192" font-family="'Fira Code', ui-monospace, monospace" font-size="18" fill="#6e7681">connected to telegram · 3 active reminders</text>
+
+  <!-- user bubble -->
+  <rect x="536" y="222" width="568" height="96" rx="16" fill="#12261a" stroke="#238636" stroke-width="2" />
+  <text x="568" y="256" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#c9d1d9">remind me to submit the report</text>
+  <text x="568" y="288" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#c9d1d9">every friday at 6pm</text>
+
+  <!-- bot bubble -->
+  <rect x="96" y="336" width="604" height="150" rx="16" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <text x="128" y="370" font-family="'Fira Code', ui-monospace, monospace" font-size="18" fill="#8b949e">remi</text>
+  <text x="128" y="404" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#c9d1d9">Got it — recurring reminder created.</text>
+  <text x="128" y="436" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#39d353">every Friday · 18:00 · Africa/Lagos</text>
+  <text x="128" y="466" font-family="'Fira Code', ui-monospace, monospace" font-size="17" fill="#6e7681">id: rmd_8f31c2</text>
+
+  <!-- confirmation chip -->
+  <rect x="96" y="508" width="286" height="44" rx="22" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <circle cx="122" cy="530" r="6" fill="#39d353" />
+  <text x="142" y="537" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">next run in 2 days</text>
+
+  <!-- input bar -->
+  <rect x="96" y="646" width="1008" height="58" rx="29" fill="#0d1117" stroke="#30363d" stroke-width="2" />
+  <text x="128" y="683" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#39d353">&gt;</text>
+  <text x="156" y="683" font-family="'Fira Code', ui-monospace, monospace" font-size="19" fill="#6e7681">message remi…</text>
+  <rect x="1050" y="662" width="12" height="26" fill="#39d353" />
+
+  <!-- footer stack label -->
+  <text x="96" y="736" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#6e7681">python · fastapi · react · vite · tailwind · telegram api</text>
+</svg>

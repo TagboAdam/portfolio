@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="cc-title cc-desc">
+  <title id="cc-title">CampusConnect — AI-powered learning management system</title>
+  <desc id="cc-desc">A dark dashboard window with a course sidebar and three cards for an AI study assistant, assignment progress and the next class.</desc>
+
+  <defs>
+    <pattern id="cc-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#c9d1d9" stroke-opacity="0.04" stroke-width="1" />
+    </pattern>
+    <radialGradient id="cc-glow" cx="90%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0d1117" />
+  <rect width="1200" height="800" fill="url(#cc-grid)" />
+  <rect width="1200" height="800" fill="url(#cc-glow)" />
+
+  <!-- window -->
+  <rect x="48" y="48" width="1104" height="704" rx="18" fill="#161b22" stroke="#30363d" stroke-width="2" />
+  <line x1="48" y1="112" x2="1152" y2="112" stroke="#21262d" stroke-width="2" />
+  <circle cx="84" cy="80" r="6" fill="#ff5f56" />
+  <circle cx="106" cy="80" r="6" fill="#ffbd2e" />
+  <circle cx="128" cy="80" r="6" fill="#27c93f" />
+  <text x="160" y="87" font-family="'Fira Code', ui-monospace, monospace" font-size="20" fill="#8b949e">campusconnect / dashboard</text>
+
+  <!-- sidebar -->
+  <rect x="48" y="113" width="252" height="639" fill="#0f141b" />
+  <line x1="300" y1="113" x2="300" y2="752" stroke="#21262d" stroke-width="2" />
+  <text x="80" y="164" font-family="'Fira Code', ui-monospace, monospace" font-size="18" fill="#39d353">CampusConnect</text>
+  <rect x="72" y="192" width="204" height="42" rx="8" fill="#12261a" stroke="#238636" stroke-width="1.5" />
+  <text x="92" y="219" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#39d353">&gt; dashboard</text>
+  <text x="92" y="266" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">  courses</text>
+  <text x="92" y="306" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">  assignments</text>
+  <text x="92" y="346" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">  ai tutor</text>
+  <text x="92" y="386" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">  grades</text>
+  <text x="80" y="704" font-family="'Fira Code', ui-monospace, monospace" font-size="14" fill="#6e7681">final year project</text>
+
+  <!-- page heading -->
+  <text x="340" y="172" font-family="'Fira Code', ui-monospace, monospace" font-size="26" fill="#f0f6fc">Good evening, Adam</text>
+  <text x="340" y="202" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">3 assignments due this week · 2 new class notes</text>
+
+  <!-- card 1: AI tutor -->
+  <rect x="340" y="232" width="360" height="196" rx="14" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <text x="368" y="270" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">ai tutor</text>
+  <text x="368" y="312" font-family="'Fira Code', ui-monospace, monospace" font-size="22" fill="#c9d1d9">Ask about any lecture</text>
+  <rect x="368" y="336" width="304" height="44" rx="22" fill="#0d1117" stroke="#30363d" stroke-width="1.5" />
+  <text x="388" y="364" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#6e7681">explain pointers in C…</text>
+  <rect x="620" y="348" width="10" height="20" fill="#39d353" />
+
+  <!-- card 2: progress -->
+  <rect x="724" y="232" width="380" height="196" rx="14" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <text x="752" y="270" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">submission progress</text>
+  <text x="752" y="314" font-family="'Fira Code', ui-monospace, monospace" font-size="34" fill="#39d353">78%</text>
+  <rect x="752" y="334" width="324" height="10" rx="5" fill="#30363d" />
+  <rect x="752" y="334" width="253" height="10" rx="5" fill="#39d353" />
+  <text x="752" y="386" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#6e7681">14 of 18 tasks · on track</text>
+
+  <!-- card 3: next class -->
+  <rect x="340" y="452" width="360" height="160" rx="14" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <text x="368" y="490" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">next class</text>
+  <text x="368" y="528" font-family="'Fira Code', ui-monospace, monospace" font-size="20" fill="#c9d1d9">Distributed Systems</text>
+  <text x="368" y="560" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#58a6ff">09:00 · lecture hall B</text>
+  <text x="368" y="588" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#6e7681">notes uploaded ✓</text>
+
+  <!-- card 4: activity -->
+  <rect x="724" y="452" width="380" height="160" rx="14" fill="#1c2128" stroke="#30363d" stroke-width="2" />
+  <text x="752" y="490" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#8b949e">recent activity</text>
+  <text x="752" y="522" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#c9d1d9">AI summary · week 7 slides</text>
+  <text x="752" y="548" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#c9d1d9">Grade posted · databases</text>
+  <text x="752" y="574" font-family="'Fira Code', ui-monospace, monospace" font-size="15" fill="#c9d1d9">New forum reply · group 4</text>
+  <circle cx="1060" cy="516" r="5" fill="#39d353" />
+
+  <!-- footer stack label -->
+  <text x="340" y="700" font-family="'Fira Code', ui-monospace, monospace" font-size="16" fill="#6e7681">python · fastapi · react · ai · edtech</text>
+</svg>
