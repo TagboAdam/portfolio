@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Adam — Front-end Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Adam, a front-end developer building fast, accessible web interfaces.">
+
+    <meta
+      name="theme-color"
+      content="#fbfaf7"
+      media="(prefers-color-scheme: light)">
+    <meta
+      name="theme-color"
+      content="#101216"
+      media="(prefers-color-scheme: dark)">
+
+    <!-- Temporary inline monogram favicon; replaced by assets/ in Phase 9 -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='Arial,Helvetica,sans-serif' font-size='15' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ===================== Header / navigation ===================== -->
+    <header class="site-header">
+      <div class="container header__inner">
+        <a class="brand" href="#top" aria-label="Adam — back to top">
+          <span class="brand__mark" aria-hidden="true">A</span>
+          <span class="brand__name">Adam</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="site-nav__cta">
+              <!-- TODO (Phase 0): drop your PDF at assets/resume.pdf -->
+              <a class="btn btn--primary btn--sm" href="assets/resume.pdf">
+                Résumé
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ===================== Hero ===================== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow">Available for internships</p>
+
+            <h1 class="hero__title" id="hero-title">
+              I'm Adam — I build
+              <span class="accent">fast, accessible</span> web interfaces.
+            </h1>
+
+            <p class="hero__lead">
+              Front-end developer and computer science student. I care about
+              clean markup, considered typography, and interfaces that stay out
+              of the way.
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#projects">View projects</a>
+              <a class="btn btn--ghost" href="assets/resume.pdf">
+                Download résumé
+              </a>
+            </div>
+
+            <ul class="hero__meta">
+              <li>Front-end &amp; UI</li>
+              <li>Open to remote</li>
+            </ul>
+          </div>
+
+          <div class="hero__visual">
+            <!-- Phase 4: replace with a real portrait or CSS monogram -->
+            <div class="hero__portrait placeholder">
+              <span class="placeholder__label">Phase 4</span>
+              <p>Portrait or monogram</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Projects ===================== -->
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <div class="container">
+          <div class="section__header">
+            <p class="section__kicker">01 — Selected work</p>
+            <h2 class="section__title" id="projects-title">Projects</h2>
+            <p class="section__lead">
+              A few things I have designed and built. Every card will link to
+              the live site and its source.
+            </p>
+          </div>
+
+          <div class="placeholder">
+            <span class="placeholder__label">Phase 5</span>
+            <p>
+              The project grid lands here: screenshot, one-line summary, tech
+              tags, and live / repository links.
+            </p>
+            <p>
+              Cards render from <code>js/projects.js</code>, so adding a project
+              is one object rather than hand-edited markup.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== About ===================== -->
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="container">
+          <div class="section__header">
+            <p class="section__kicker">02 — Background</p>
+            <h2 class="section__title" id="about-title">About</h2>
+            <p class="section__lead">
+              Where I study, what I am working on right now, and what I want to
+              build next.
+            </p>
+          </div>
+
+          <div class="placeholder">
+            <span class="placeholder__label">Phase 6</span>
+            <p>
+              Two-column bio plus skills grouped by languages, frameworks and
+              tools.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Contact ===================== -->
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="section__header">
+            <p class="section__kicker">03 — Contact</p>
+            <h2 class="section__title" id="contact-title">Get in touch</h2>
+            <p class="section__lead">
+              Email is the fastest way to reach me. I usually reply within a
+              day.
+            </p>
+          </div>
+
+          <div class="placeholder">
+            <span class="placeholder__label">Phase 7</span>
+            <p>
+              Contact form (or a mailto CTA) with inline validation and spam
+              protection.
+            </p>
+            <p>
+              For now:
+              <a href="mailto:adam.tagbo@gmail.com">adam.tagbo@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="site-footer">
+      <div class="container footer__inner">
+        <p>© 2026 Adam. Built with plain HTML, CSS and JavaScript.</p>
+
+        <ul class="footer__links">
+          <li>
+            <a href="https://github.com/your-username" rel="noopener me">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/your-profile"
+              rel="noopener me"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="mailto:adam.tagbo@gmail.com">Email</a>
+          </li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
+
