@@ -6,7 +6,7 @@
      2. Layout helpers
      3. Header + navigation
      4. Hero (text left, feathered image right)
-     5. Work
+     5. Work: project carousel
      6. About + now
      7. Contact
      8. Footer
@@ -149,7 +149,9 @@ strong {
   text-transform: lowercase;
 }
 
-.section__link {
+/* Small mono link: section heads, project actions. */
+.section__link,
+.text-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -161,8 +163,19 @@ strong {
 }
 
 .section__link:hover,
-.section__link:focus-visible {
+.section__link:focus-visible,
+.text-link:hover,
+.text-link:focus-visible {
   color: var(--fg);
+}
+
+.text-link .icon {
+  transition: transform var(--dur-base) var(--ease);
+}
+
+.text-link:hover .icon,
+.text-link:focus-visible .icon {
+  transform: translate(2px, -2px);
 }
 
 .visually-hidden {
@@ -438,30 +451,211 @@ body.nav-open {
   letter-spacing: var(--tracking-mono);
 }
 
-/* --- 5. Work -------------------------------------------------------------- */
-.rows {
+/* --- 5. Work: project carousel -------------------------------------------- */
+.work {
+  padding-top: clamp(24px, 3vw, 34px);
+}
+
+/* Index: every project is named in text, so the carousel never hides the list.
+   The hairline under it is also the progress line. */
+.work__index {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: clamp(18px, 2.6vw, 36px);
+  margin-bottom: clamp(26px, 4vw, 42px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.work__index::-webkit-scrollbar {
+  display: none;
+}
+
+.work__tab {
+  display: inline-flex;
+  flex: none;
+  align-items: baseline;
+  gap: 9px;
+  padding: 0 0 15px;
+  border: 0;
+  background: none;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-mono);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease);
+}
+
+.work__tab-num {
+  font-size: var(--text-xs);
+}
+
+.work__tab:hover {
+  color: var(--fg-2);
+}
+
+.work__tab[aria-current="true"] {
+  color: var(--fg);
+}
+
+/* One hairline that travels to the active project. Positioned by js/main.js;
+   without JS the whole index is hidden, so it never sits in the wrong place. */
+.work__marker {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  background: var(--fg);
+  transition: transform var(--dur-base) var(--ease),
+    width var(--dur-base) var(--ease);
+}
+
+.work__viewport {
+  position: relative;
+}
+
+.work__track {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.row {
+/* With JS the track slides one project at a time. The 8px inset keeps the
+   focus ring inside the overflow clip; content stays aligned because the
+   track is pulled out by the same amount. */
+.js .work__viewport {
+  overflow: hidden;
+}
+
+.js .work__track {
+  display: flex;
+  margin-inline: -8px;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.js .project {
+  flex: 0 0 100%;
+  padding: 8px;
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+/* An off-screen slide stays paintable while it slides out, then leaves the
+   tab order. inert already covers this in every target browser; visibility
+   is the belt to its braces. */
+.js .project[aria-hidden="true"] {
+  visibility: hidden;
+  transition: visibility 0s var(--dur-slow);
+}
+
+.project {
   display: grid;
-  grid-template-columns: 44px minmax(120px, 0.9fr) minmax(0, 2fr) minmax(0, 1fr) 52px 24px;
-  align-items: baseline;
-  gap: var(--space-5);
-  padding: 26px 0;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: start;
+  gap: clamp(24px, 4.4vw, 64px);
+}
+
+.project__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.project__title {
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.05;
+}
+
+.project__kicker {
+  margin-top: 10px;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: lowercase;
+}
+
+.project__desc {
+  margin-top: 20px;
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: var(--leading-body);
+}
+
+.project__facts {
+  width: 100%;
+  margin: 26px 0 0;
+}
+
+/* One label/value row per fact, hairline above each, same pattern as the
+   about list so the two sections read as the same system. */
+.fact {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: 11px 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.fact:last-child {
   border-bottom: 1px solid var(--border-soft);
-  transition: border-color var(--dur-base) var(--ease);
 }
 
-.row:hover {
-  border-bottom-color: var(--border-strong);
+.fact dt {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  line-height: 1.7;
+  text-transform: lowercase;
 }
 
-.row__index,
-.row__tags,
-.row__year {
+.fact dd {
+  margin: 0;
+  color: var(--fg-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.project__actions {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: 22px;
+}
+
+.project__media {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.project__media img {
+  width: 100%;
+  height: auto;
+}
+
+.work__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-top: clamp(20px, 3vw, 30px);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.work__counter {
   margin: 0;
   color: var(--meta);
   font-family: var(--font-mono);
@@ -469,67 +663,56 @@ body.nav-open {
   letter-spacing: var(--tracking-mono);
 }
 
-.row__title {
-  margin: 0;
-  font-size: var(--text-lg);
-  font-weight: 500;
-  letter-spacing: var(--tracking-title);
-  line-height: 1.3;
-}
-
-.row__link {
+.work__counter-now {
   color: var(--fg);
-  background-image: linear-gradient(var(--fg), var(--fg));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 1px;
-  padding-bottom: 2px;
-  transition: background-size var(--dur-slow) var(--ease);
 }
 
-.row:hover .row__link,
-.row__link:focus-visible {
-  background-size: 100% 1px;
+.work__buttons {
+  display: flex;
+  gap: 8px;
 }
 
-.row__desc {
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.row__year {
-  text-align: right;
-}
-
-.row__arrow {
-  justify-self: end;
-  color: var(--dim);
-  transition: color var(--dur-base) var(--ease),
-    transform var(--dur-base) var(--ease);
-}
-
-.row:hover .row__arrow {
-  color: var(--accent);
-  transform: translate(2px, -2px);
-}
-
-.rows__more {
+.work__btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 22px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
   color: var(--fg-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-mono);
-  transition: color var(--dur-base) var(--ease);
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    background-color var(--dur-base) var(--ease);
 }
 
-.rows__more:hover,
-.rows__more:focus-visible {
+.work__btn:hover,
+.work__btn:focus-visible {
   color: var(--fg);
+  border-color: var(--border-strong);
+  background: var(--surface);
+}
+
+.work__btn:active {
+  background: var(--surface-2);
+}
+
+/* No JS: hide the controls, stack the three projects with hairline breaks. */
+html:not(.js) .work__index,
+html:not(.js) .work__controls {
+  display: none;
+}
+
+html:not(.js) .project {
+  padding-block: var(--space-8);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+html:not(.js) .project:last-child {
+  border-bottom: 0;
 }
 
 /* --- 6. About + now ------------------------------------------------------- */
@@ -862,7 +1045,8 @@ body.nav-open {
     animation: none;
   }
 
-  .row__arrow {
+  .work__track,
+  .work__marker {
     transition: none;
   }
 }
@@ -897,35 +1081,29 @@ body.nav-open {
   }
 }
 
+@media (max-width: 880px) {
+  .project {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  /* On narrow screens the image leads and the words follow. */
+  .project__media {
+    order: -1;
+  }
+
+  .project__desc {
+    max-width: none;
+  }
+}
+
 @media (max-width: 760px) {
-  .row {
-    grid-template-columns: 32px minmax(0, 1fr) 48px;
-    row-gap: 6px;
-    padding: 22px 0;
+  .work__tab {
+    font-size: var(--text-xs);
   }
 
-  .row__index {
-    grid-column: 1 / 2;
-    grid-row: 1;
-  }
-
-  .row__title {
-    grid-column: 2 / 3;
-    grid-row: 1;
-  }
-
-  .row__year {
-    grid-column: 3 / 4;
-    grid-row: 1;
-  }
-
-  .row__desc,
-  .row__tags {
-    grid-column: 2 / 4;
-  }
-
-  .row__arrow {
-    display: none;
+  .fact {
+    grid-template-columns: 64px minmax(0, 1fr);
   }
 }
 

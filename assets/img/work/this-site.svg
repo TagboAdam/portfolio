@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="site-art">
+  <title id="site-art">Placeholder for this portfolio: a wireframe of the page itself, with a display headline, one image plate and two project rows.</title>
+
+  <defs>
+    <pattern id="site-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.028" stroke-width="1" />
+    </pattern>
+    <radialGradient id="site-bloom" cx="76%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="site-plate" cx="52%" cy="46%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#0a0a0b" />
+  <rect width="1600" height="1000" fill="url(#site-grid)" />
+  <rect width="1600" height="1000" fill="url(#site-bloom)" />
+
+  <!-- navigation -->
+  <text x="120" y="88" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="20" letter-spacing="1.6" fill="#f4f5f7">adam</text>
+  <g fill="#212126">
+    <rect x="1138" y="76" width="52" height="9" rx="4.5" />
+    <rect x="1218" y="76" width="62" height="9" rx="4.5" />
+    <rect x="1308" y="76" width="74" height="9" rx="4.5" />
+    <rect x="1410" y="76" width="70" height="9" rx="4.5" fill="#3a3a42" />
+  </g>
+
+  <!-- hero copy as bars -->
+  <rect x="120" y="168" width="212" height="10" rx="5" fill="#2f2f36" />
+
+  <g fill="#3c3c44">
+    <rect x="118" y="212" width="742" height="62" rx="4" />
+    <rect x="118" y="290" width="648" height="62" rx="4" />
+    <rect x="118" y="368" width="452" height="62" rx="4" />
+  </g>
+
+  <g fill="#26262c">
+    <rect x="120" y="474" width="428" height="11" rx="5.5" />
+    <rect x="120" y="500" width="366" height="11" rx="5.5" />
+  </g>
+
+  <line x1="120" y1="560" x2="820" y2="560" stroke="#232327" stroke-width="1.5" />
+  <g fill="#212126">
+    <rect x="120" y="582" width="104" height="9" rx="4.5" />
+    <rect x="264" y="582" width="146" height="9" rx="4.5" />
+    <rect x="450" y="582" width="96" height="9" rx="4.5" />
+  </g>
+
+  <!-- feathered image plate -->
+  <rect x="900" y="150" width="580" height="522" rx="14" fill="#101013" stroke="#1e1e22" stroke-width="1.5" />
+  <rect x="900" y="150" width="580" height="522" rx="14" fill="url(#site-plate)" />
+  <rect x="948" y="206" width="300" height="9" rx="4.5" fill="#2a2a31" />
+  <rect x="948" y="232" width="212" height="9" rx="4.5" fill="#212126" />
+  <rect x="948" y="556" width="440" height="1.5" fill="#1e1e22" />
+  <rect x="948" y="582" width="120" height="9" rx="4.5" fill="#212126" />
+
+  <!-- work section -->
+  <text x="120" y="708" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="15" letter-spacing="3" fill="#464a51">SELECTED WORK</text>
+  <line x1="120" y1="736" x2="1480" y2="736" stroke="#232327" stroke-width="1.5" />
+
+  <g>
+    <rect x="120" y="774" width="22" height="9" rx="4.5" fill="#3a3a42" />
+    <rect x="180" y="766" width="188" height="22" rx="4" fill="#4a4a53" />
+    <rect x="420" y="772" width="336" height="9" rx="4.5" fill="#26262c" />
+    <rect x="1440" y="770" width="18" height="12" rx="2" fill="#2f2f36" />
+  </g>
+  <line x1="120" y1="826" x2="1480" y2="826" stroke="#1b1b1f" stroke-width="1.5" />
+
+  <g>
+    <rect x="120" y="862" width="22" height="9" rx="4.5" fill="#3a3a42" />
+    <rect x="180" y="854" width="248" height="22" rx="4" fill="#4a4a53" />
+    <rect x="420" y="860" width="302" height="9" rx="4.5" fill="#26262c" />
+    <rect x="1440" y="858" width="18" height="12" rx="2" fill="#2f2f36" />
+  </g>
+  <line x1="120" y1="914" x2="1480" y2="914" stroke="#1b1b1f" stroke-width="1.5" />
+
+  <!-- placeholder stamp -->
+  <text x="120" y="952" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="3" fill="#5b6069">PLACEHOLDER</text>
+  <text x="1480" y="952" text-anchor="end" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="0.6" fill="#5b6069">replace with a real screenshot</text>
+</svg>

@@ -10,3 +10,8 @@ desktop.ini
 
 # Dependencies (not used today, reserved for later phases)
 node_modules/
+
+# Local agent tooling and sandbox diagnostics — not site content
+.agents/
+skills-lock.json
+.acl-recovery/

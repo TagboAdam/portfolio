@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>carousel tests</title>
+    <!--
+      Interaction test for the project carousel. Serve the repo root and open
+      /design/carousel-test.html: it drives the real page in an iframe and
+      prints PASS/FAIL lines. Run it headless with:
+
+        msedge --headless=new --virtual-time-budget=8000 --dump-dom \
+          http://127.0.0.1:8123/design/carousel-test.html
+
+      and the <pre id="out"> block holds the results.
+    -->
+    <style>
+      iframe {
+        width: 1200px;
+        height: 900px;
+        border: 0;
+      }
+      pre {
+        font: 13px monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="frame" src="/index.html" title="portfolio under test"></iframe>
+    <pre id="out">running</pre>
+    <script>
+      (function () {
+        var results = [];
+        var out = document.getElementById("out");
+
+        function check(name, actual, expected) {
+          var ok = String(actual) === String(expected);
+          results.push(
+            (ok ? "PASS " : "FAIL ") +
+              name +
+              " => " +
+              actual +
+              (ok ? "" : " [expected " + expected + "]")
+          );
+        }
+
+        function report() {
+          var failed = results.filter(function (line) {
+            return line.indexOf("FAIL") === 0;
+          });
+
+          out.textContent =
+            results.join("\n") +
+            "\n\n" +
+            (failed.length ? failed.length + " FAILED" : "ALL CAROUSEL TESTS PASS");
+        }
+
+        window.addEventListener("load", function () {
+          var frame = document.getElementById("frame");
+          var doc = frame.contentDocument;
+          var win = frame.contentWindow;
+
+          setTimeout(function () {
+            var tabs = doc.querySelectorAll("[data-slide-to]");
+            var slides = doc.querySelectorAll("[data-slide]");
+            var next = doc.querySelector("[data-carousel-next]");
+            var prev = doc.querySelector("[data-carousel-prev]");
+            var counter = doc.querySelector("[data-counter]");
+            var status = doc.querySelector("[data-carousel-status]");
+            var track = doc.querySelector("[data-track]");
+            var marker = doc.querySelector("[data-marker]");
+
+            function currentTab() {
+              for (var i = 0; i < tabs.length; i += 1) {
+                if (tabs[i].getAttribute("aria-current") === "true") return i;
+              }
+              return -1;
+            }
+
+            check("slide count", slides.length, 3);
+            check("tab count", tabs.length, 3);
+
+            check("initial counter", counter.textContent, "01");
+            check("initial current tab", currentTab(), 0);
+            check("initial slide 0 hidden", slides[0].getAttribute("aria-hidden"), null);
+            check("initial slide 1 hidden", slides[1].getAttribute("aria-hidden"), "true");
+            check("initial slide 1 inert", slides[1].hasAttribute("inert"), true);
+            check("initial track offset", track.style.transform, "translateX(0%)");
+
+            next.click();
+            check("after next counter", counter.textContent, "02");
+            check("after next current tab", currentTab(), 1);
+            check("after next track offset", track.style.transform, "translateX(-100%)");
+            check("after next status", status.textContent, "Project 2 of 3: CampusConnect");
+            check("after next slide 1 live", slides[1].getAttribute("aria-hidden"), null);
+            check("after next slide 0 inert", slides[0].hasAttribute("inert"), true);
+
+            next.click();
+            check("third counter", counter.textContent, "03");
+            check("third status", status.textContent, "Project 3 of 3: This site");
+
+            next.click();
+            check("wrap forward counter", counter.textContent, "01");
+            check("wrap forward current tab", currentTab(), 0);
+
+            prev.click();
+            check("wrap back counter", counter.textContent, "03");
+            check("wrap back track offset", track.style.transform, "translateX(-200%)");
+
+            tabs[1].click();
+            check("tab click counter", counter.textContent, "02");
+            check("tab click track offset", track.style.transform, "translateX(-100%)");
+
+            var keyEvent = new win.KeyboardEvent("keydown", {
+              key: "ArrowRight",
+              bubbles: true,
+            });
+            tabs[1].dispatchEvent(keyEvent);
+            check("arrow key counter", counter.textContent, "03");
+
+            var backEvent = new win.KeyboardEvent("keydown", {
+              key: "ArrowLeft",
+              bubbles: true,
+            });
+            tabs[2].dispatchEvent(backEvent);
+            check("arrow key back counter", counter.textContent, "02");
+
+            check(
+              "marker width matches tab",
+              Math.abs(parseFloat(marker.style.width) - tabs[1].offsetWidth) < 1,
+              true
+            );
+            check(
+              "marker offset matches tab",
+              marker.style.transform,
+              "translateX(" + tabs[1].offsetLeft + "px)"
+            );
+
+            var nonControl = new win.KeyboardEvent("keydown", {
+              key: "ArrowRight",
+              bubbles: true,
+            });
+            slides[1].dispatchEvent(nonControl);
+            check("arrow key outside controls ignored", counter.textContent, "02");
+
+            report();
+          }, 400);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -24,22 +24,30 @@ GitHub Pages.
 | --- | --- | --- |
 | True black canvas + silver ink | green terminal palette → silvers + one cold accent | the literal Maya Chen layout or spacing |
 | Geist for display and body | terminal chrome, status bar, cursors, prompts → gone | orange accent, gradient CTAs, emoji icons |
-| Spec-sheet detail (mono labels, hairline rows, indexes) | project cards with thumbnails → metadata rows | testimonial walls, star ratings, newsletter form |
+| Spec-sheet detail (mono labels, hairline rows, indexes) | metadata-only project rows → one project in focus, with words, stack and a placeholder plate | testimonial walls, star ratings, newsletter form |
 | Quiet minimal composition, generous air | copy cut to ~40% of the original volume | "award-winning", "7+ years", impact metrics |
 | The Lain image as the one flourish | boxed image → radial-masked image dissolving into black | the image used as a full-bleed background |
-| One-page structure | GSAP/SplitText/ScrollTrigger layer retired (CSS + IntersectionObserver) | 3D carousel, auto tickers, floating wireframes |
+| One-page structure | GSAP/SplitText/ScrollTrigger layer retired (CSS + IntersectionObserver) | 3D carousel, autoplay carousel, auto tickers, floating wireframes |
 
 ## Final stance
 
 A black gallery page where type does the talking: one display line, one
-feathered frame, hairline-ruled work rows, and a mono label layer that makes the
-page feel measured rather than designed. Motion exists only to let the page
-arrive, and the single cold accent is rationed to four moments.
+feathered frame, then a single project at a time with its stack on a spec sheet,
+and a mono label layer that makes the page feel measured rather than designed.
+Motion exists only to let the page arrive and to move between projects, and the
+single cold accent is rationed to four moments.
 
 ## Risks and unknowns
 
 - **Headline is a placeholder** until Adam writes his own line; it is marked in
   the HTML and tracked in the README content table.
+- **Project copy is written but unverified**: the descriptions are plausible
+  summaries of the two real builds plus this site, and the third slide exists so
+  the carousel has a rhythm. Adam should confirm each line, and replace the
+  "This site" slide if he would rather show another project.
+- **Project plates are placeholders**: local SVG mock-ups stamped
+  `PLACEHOLDER / replace with a real screenshot`. Swapping one is a file swap
+  plus the `width`/`height` attributes, both checked by `design/check.py`.
 - **LinkedIn** is hidden rather than shipped as a dead `/in/` link.
 - **Hero image resolution** is 475×473 and cannot be increased locally; slight
   softness is accepted at 620px CSS width.
@@ -48,9 +56,9 @@ arrive, and the single cold accent is rationed to four moments.
   homage.
 - **`mask-image` support**: modern evergreen browsers only; older engines see an
   unmasked image rather than a broken layout.
-- **No browser automation** in this environment, so final visual sign-off is the
-  user's eyes on the local preview; automated checks cover structure, contrast,
-  links and forbidden patterns.
+- **Browser automation is available** for verification (headless Edge):
+  screenshots at 1440 / 390 px and a scripted carousel test. It is a check, not
+  a guarantee; the user's eyes still sign off.
 
 ## Quality gate
 
@@ -62,7 +70,12 @@ arrive, and the single cold accent is rationed to four moments.
 - [x] Icon sprite integrity: every `<use href="#id">` resolves to a symbol
       (checked).
 - [x] Every section has `data-od-id` and a resolving `aria-labelledby`.
-- [x] Every local link and asset resolves; images carry `alt` and intrinsics.
+- [x] Every local link and asset resolves; images carry `alt` and intrinsics,
+      and each SVG plate declares the same size as its `<img>` (checked).
 - [x] One `h1`; heading order intact.
-- [x] Reduced motion and no-JS paths keep all content visible.
-- [x] Mobile reflow defined at 980 / 760 / 640 / 420 px.
+- [x] Carousel: one index tab per slide, a status region, wrap in both
+      directions, inert off-screen slides, no autoplay (checked by
+      `design/carousel-test.html`).
+- [x] Reduced motion and no-JS paths keep all content visible, including all
+      three projects.
+- [x] Mobile reflow defined at 980 / 880 / 760 / 640 / 420 px.

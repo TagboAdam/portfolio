@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="campus-art">
+  <title id="campus-art">Placeholder for CampusConnect: a course overview with three counts and a rising activity chart.</title>
+
+  <defs>
+    <pattern id="campus-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1" />
+    </pattern>
+    <radialGradient id="campus-bloom" cx="86%" cy="0%" r="72%">
+      <stop offset="0%" stop-color="#cfe3ff" stop-opacity="0.11" />
+      <stop offset="72%" stop-color="#cfe3ff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="campus-area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#cfe3ff" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#cfe3ff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#0a0a0b" />
+  <rect width="1600" height="1000" fill="url(#campus-grid)" />
+  <rect width="1600" height="1000" fill="url(#campus-bloom)" />
+
+  <!-- header -->
+  <line x1="120" y1="196" x2="1480" y2="196" stroke="#26262c" stroke-width="2" />
+  <text x="120" y="150" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="52" letter-spacing="-0.5" fill="#f4f5f7">campusconnect</text>
+  <text x="1480" y="144" text-anchor="end" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="28" letter-spacing="1" fill="#7d828b">final year, spring term</text>
+
+  <!-- counts -->
+  <g>
+    <text x="120" y="278" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="4" fill="#6f747d">STUDENTS</text>
+    <text x="118" y="408" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="116" letter-spacing="-4" fill="#f4f5f7">42</text>
+
+    <text x="560" y="278" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="4" fill="#6f747d">MATERIALS</text>
+    <text x="558" y="408" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="116" letter-spacing="-4" fill="#f4f5f7">18</text>
+
+    <text x="1000" y="278" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="4" fill="#6f747d">QUESTIONS</text>
+    <text x="998" y="408" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="116" letter-spacing="-4" fill="#f4f5f7">126</text>
+    <text x="1480" y="404" text-anchor="end" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="30" letter-spacing="0.6" fill="#9096a0">+18 this week</text>
+  </g>
+
+  <!-- chart -->
+  <line x1="120" y1="486" x2="1480" y2="486" stroke="#26262c" stroke-width="2" />
+  <text x="120" y="540" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="28" letter-spacing="1.6" fill="#7d828b">questions per week</text>
+
+  <g stroke="#1f1f24" stroke-width="2">
+    <line x1="120" y1="640" x2="1480" y2="640" />
+    <line x1="120" y1="740" x2="1480" y2="740" />
+    <line x1="120" y1="840" x2="1480" y2="840" />
+  </g>
+
+  <polygon points="120,820 280,772 440,792 600,714 760,738 920,656 1080,680 1240,600 1400,572 1400,860 120,860" fill="url(#campus-area)" />
+  <polyline points="120,820 280,772 440,792 600,714 760,738 920,656 1080,680 1240,600 1400,572" fill="none" stroke="#cfe3ff" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="1400" cy="572" r="10" fill="#cfe3ff" />
+
+  <text x="120" y="952" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="3" fill="#5b6069">PLACEHOLDER</text>
+  <text x="1480" y="952" text-anchor="end" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="0.6" fill="#5b6069">replace with a real screenshot</text>
+</svg>

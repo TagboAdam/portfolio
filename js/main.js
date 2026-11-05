@@ -1,8 +1,8 @@
 /* ==========================================================================
    main.js — page behaviour
    Small, dependency-free: mobile navigation, header hairline on scroll,
-   one-time section reveals and the footer year. All content is in the markup,
-   so nothing here is required for the page to read.
+   one-time section reveals, the project carousel and the footer year. All
+   content is in the markup, so nothing here is required for the page to read.
    ========================================================================== */
 
 (function () {
@@ -98,6 +98,178 @@
         item.classList.add("is-visible");
       });
     }
+  }
+
+  /* --- Project carousel -------------------------------------------------- */
+  /* One project in view, the rest parked off track. No autoplay: the index,
+     the arrows and a swipe move it, and the arrow keys work while focus is
+     inside the controls. Without this script every project is stacked and
+     readable, and the index and arrows stay hidden. */
+  var carousel = document.querySelector("[data-carousel]");
+
+  if (carousel) {
+    var track = carousel.querySelector("[data-track]");
+    var viewport = carousel.querySelector(".work__viewport");
+    var marker = carousel.querySelector("[data-marker]");
+    var counter = carousel.querySelector("[data-counter]");
+    var status = carousel.querySelector("[data-carousel-status]");
+    var prevButton = carousel.querySelector("[data-carousel-prev]");
+    var nextButton = carousel.querySelector("[data-carousel-next]");
+    var slides = Array.prototype.slice.call(
+      carousel.querySelectorAll("[data-slide]")
+    );
+    var tabs = Array.prototype.slice.call(
+      carousel.querySelectorAll("[data-slide-to]")
+    );
+    var total = slides.length;
+    var current = 0;
+
+    var pad = function (value) {
+      return (value < 10 ? "0" : "") + value;
+    };
+
+    // The hairline indicator is measured from the tabs, never hard-coded
+    var moveMarker = function () {
+      var tab = tabs[current];
+
+      if (!marker || !tab) return;
+
+      marker.style.width = tab.offsetWidth + "px";
+      marker.style.transform = "translateX(" + tab.offsetLeft + "px)";
+    };
+
+    var show = function (next, announce) {
+      if (!total) return;
+
+      // Wrap in both directions so the arrows never end up doing nothing
+      current = ((next % total) + total) % total;
+
+      if (track) {
+        track.style.transform = "translateX(" + current * -100 + "%)";
+      }
+
+      slides.forEach(function (slide, index) {
+        var active = index === current;
+
+        slide.classList.toggle("is-active", active);
+
+        if (active) {
+          slide.removeAttribute("inert");
+          slide.removeAttribute("aria-hidden");
+        } else {
+          slide.setAttribute("inert", "");
+          slide.setAttribute("aria-hidden", "true");
+        }
+      });
+
+      tabs.forEach(function (tab, index) {
+        if (index === current) {
+          tab.setAttribute("aria-current", "true");
+        } else {
+          tab.removeAttribute("aria-current");
+        }
+      });
+
+      if (counter) counter.textContent = pad(current + 1);
+
+      moveMarker();
+
+      if (announce && status) {
+        status.textContent =
+          "Project " +
+          (current + 1) +
+          " of " +
+          total +
+          ": " +
+          (tabs[current] ? tabs[current].getAttribute("data-name") : "");
+      }
+    };
+
+    if (prevButton) {
+      prevButton.addEventListener("click", function () {
+        show(current - 1, true);
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener("click", function () {
+        show(current + 1, true);
+      });
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () {
+        show(index, true);
+      });
+    });
+
+    // Arrow keys only step the carousel while focus sits on a control, so the
+    // page still scrolls normally everywhere else
+    carousel.addEventListener("keydown", function (event) {
+      var onControl = event.target.closest
+        ? event.target.closest(".work__index, .work__buttons")
+        : null;
+
+      if (!onControl) return;
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        show(current + 1, true);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        show(current - 1, true);
+      }
+    });
+
+    // Swipe: horizontal only, and nowhere near as eager as a scroll
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touching = false;
+
+    if (viewport) {
+      viewport.addEventListener(
+        "touchstart",
+        function (event) {
+          if (event.touches.length !== 1) return;
+          touchStartX = event.touches[0].clientX;
+          touchStartY = event.touches[0].clientY;
+          touching = true;
+        },
+        { passive: true }
+      );
+
+      viewport.addEventListener(
+        "touchend",
+        function (event) {
+          if (!touching) return;
+          touching = false;
+
+          var touch = event.changedTouches[0];
+          var dx = touch.clientX - touchStartX;
+          var dy = touch.clientY - touchStartY;
+
+          if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+
+          show(current + (dx < 0 ? 1 : -1), true);
+        },
+        { passive: true }
+      );
+    }
+
+    var resizeFrame;
+    var replaceMarker = function () {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(moveMarker);
+    };
+
+    window.addEventListener("resize", replaceMarker);
+
+    // Tab widths change once Geist Mono arrives, so measure again after fonts
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(moveMarker);
+    }
+
+    show(0, false);
   }
 
   /* --- Copy email ------------------------------------------------------- */

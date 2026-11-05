@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>reflow tests</title>
+    <!--
+      Layout test for the work carousel: no-JS fallback and responsive reflow.
+      Serve the repo root and open /design/reflow-test.html: it loads the real
+      page in two iframes, builds a script-free copy of it as a third, and
+      prints PASS/FAIL lines. Run it headless with:
+
+        msedge --headless=new --virtual-time-budget=8000 --dump-dom `
+          http://127.0.0.1:8123/design/reflow-test.html
+
+      The script-free copy is generated here from index.html (every <script>
+      block removed, asset paths made absolute), so nothing extra has to be
+      kept in the repo for this test to run.
+    -->
+    <style>
+      iframe {
+        display: none;
+      }
+      pre {
+        font: 13px monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="nojs" title="page without javascript"></iframe>
+    <iframe id="tablet" src="/index.html" title="page at tablet width"></iframe>
+    <iframe id="phone" src="/index.html" title="page at phone width"></iframe>
+    <pre id="out">running</pre>
+    <script>
+      (function () {
+        var results = [];
+        var out = document.getElementById("out");
+
+        function check(name, actual, expected) {
+          var ok = String(actual) === String(expected);
+          results.push(
+            (ok ? "PASS " : "FAIL ") +
+              name +
+              " => " +
+              actual +
+              (ok ? "" : " [expected " + expected + "]")
+          );
+        }
+
+        function report() {
+          var failed = results.filter(function (line) {
+            return line.indexOf("FAIL") === 0;
+          });
+
+          out.textContent =
+            results.join("\n") +
+            "\n\n" +
+            (failed.length ? failed.length + " FAILED" : "ALL REFLOW TESTS PASS");
+        }
+
+        function size(frame, width, height) {
+          frame.style.display = "block";
+          frame.style.width = width + "px";
+          frame.style.height = height + "px";
+        }
+
+        function stripScripts(html) {
+          return html
+            .replace(/<script[\s\S]*?<\/script>/g, "")
+            .replace(/(href|src)="(?!https?:|#|data:|mailto:|tel:)/g, '$1="/');
+        }
+
+        window.addEventListener("load", function () {
+          var nojs = document.getElementById("nojs");
+          var tablet = document.getElementById("tablet");
+          var phone = document.getElementById("phone");
+
+          size(tablet, 860, 1400);
+          size(phone, 390, 1600);
+          size(nojs, 1440, 2200);
+
+          fetch("/index.html")
+            .then(function (response) {
+              return response.text();
+            })
+            .then(function (html) {
+              nojs.srcdoc = stripScripts(html);
+
+              nojs.addEventListener("load", function () {
+                setTimeout(run, 500);
+              });
+            });
+
+          function run() {
+            /* --- no JavaScript: index and controls hidden, slides stacked -- */
+            var nd = nojs.contentDocument;
+            var cs = nojs.contentWindow.getComputedStyle.bind(nojs.contentWindow);
+
+            check("nojs slides reached", nd.querySelectorAll("[data-slide]").length, 3);
+            check("nojs index hidden", cs(nd.querySelector(".work__index")).display, "none");
+            check("nojs controls hidden", cs(nd.querySelector(".work__controls")).display, "none");
+            // The marker sits inside the hidden index; rendered boxes have an
+            // offsetParent, so null proves it never paints
+            check(
+              "nojs marker unrendered",
+              nd.querySelector(".work__marker").offsetParent === null,
+              true
+            );
+            check("nojs track is block", cs(nd.querySelector(".work__track")).display, "block");
+
+            var nSlides = nd.querySelectorAll("[data-slide]");
+
+            var stacked = true;
+            var sameColumn = true;
+            for (var i = 1; i < nSlides.length; i += 1) {
+              if (nSlides[i].offsetTop <= nSlides[i - 1].offsetTop) stacked = false;
+              if (nSlides[i].offsetLeft !== nSlides[0].offsetLeft) sameColumn = false;
+            }
+            check("nojs slides stack vertically", stacked, true);
+            check("nojs slides share a column", sameColumn, true);
+            check("nojs first slide visible", nSlides[0].offsetHeight > 100, true);
+            check("nojs last slide visible", nSlides[2].offsetHeight > 100, true);
+            check(
+              "nojs all three titles present",
+              nd.querySelectorAll(".project__title").length,
+              3
+            );
+            check(
+              "nojs no inert slides",
+              nd.querySelectorAll("[data-slide][inert]").length,
+              0
+            );
+            check(
+              "nojs no aria-hidden slides",
+              nd.querySelectorAll("[data-slide][aria-hidden]").length,
+              0
+            );
+
+            /* --- tablet: one column, plate leads, no horizontal scroll ----- */
+            var td = tablet.contentDocument;
+            var tcs = tablet.contentWindow.getComputedStyle.bind(tablet.contentWindow);
+            var tProject = td.querySelector(".project");
+
+            check(
+              "tablet project is one column",
+              tcs(tProject).gridTemplateColumns.split(" ").length,
+              1
+            );
+            check("tablet plate leads", tcs(td.querySelector(".project__media")).order, "-1");
+            check(
+              "tablet no horizontal scroll",
+              td.documentElement.scrollWidth <= 860,
+              true
+            );
+            check("tablet track slides", td.querySelectorAll("[data-slide]").length, 3);
+
+            /* --- phone: one column, plate leads, no horizontal scroll ------ */
+            var pd = phone.contentDocument;
+            var pcs = phone.contentWindow.getComputedStyle.bind(phone.contentWindow);
+            var pProject = pd.querySelector(".project");
+
+            check(
+              "phone project is one column",
+              pcs(pProject).gridTemplateColumns.split(" ").length,
+              1
+            );
+            check("phone plate leads", pcs(pd.querySelector(".project__media")).order, "-1");
+            check(
+              "phone no horizontal scroll",
+              pd.documentElement.scrollWidth <= 390,
+              true
+            );
+            check(
+              "phone index fits or scrolls alone",
+              pd.querySelector(".work__index").scrollWidth <= 391,
+              true
+            );
+            check(
+              "phone controls present",
+              pd.querySelectorAll(".work__btn").length,
+              2
+            );
+
+            report();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

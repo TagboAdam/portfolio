@@ -31,8 +31,9 @@
   --border-soft: rgba(255, 255, 255, 0.06);
 
   /* --- Colour: the one accent --------------------------------------------- */
-  /* Budget: availability dot, focus ring, hover underline, project arrow.
-     Never a fill, never a background, never body copy. */
+  /* Budget: focus ring, contact link icon on hover, contact link arrow on
+     hover, copy success icon. Never a fill, never a background, never body
+     copy, and never inside the project carousel. */
   --accent: #cfe3ff;
   --accent-ink: #000000;
 

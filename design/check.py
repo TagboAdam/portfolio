@@ -182,6 +182,38 @@ def main():
     if dangling:
         failures.append("icon references without a symbol: %s" % dangling)
 
+    # Project carousel: one index tab per slide, a status region for screen
+    # readers, and plates whose declared size matches the file on disk
+    slide_count = len(re.findall(r"data-slide(?![-\w])", page))
+    tab_count = len(re.findall(r'data-slide-to="', page))
+    if "data-carousel" in page:
+        if slide_count < 2:
+            failures.append("carousel with %d slide(s)" % slide_count)
+        if slide_count != tab_count:
+            failures.append(
+                "carousel: %d slides but %d index tabs" % (slide_count, tab_count)
+            )
+        if "data-carousel-status" not in page:
+            failures.append("carousel without a status region")
+        notes.append("carousel slides %d, tabs %d" % (slide_count, tab_count))
+
+    for img in parser.imgs:
+        src = img.get("src") or ""
+        if not src.endswith(".svg"):
+            continue
+        text = read(src)
+        match = re.search(r'<svg[^>]*\bwidth="(\d+)"[^>]*\bheight="(\d+)"', text)
+        if not match:
+            failures.append("svg without intrinsic size: %s" % src)
+            continue
+        declared = (match.group(1), match.group(2))
+        markup = (img.get("width"), img.get("height"))
+        if declared != markup:
+            failures.append(
+                "svg size mismatch for %s: file %sx%s, markup %sx%s"
+                % (src, declared[0], declared[1], markup[0], markup[1])
+            )
+
     tokens = read("css/tokens.css")
 
     def token(name):
