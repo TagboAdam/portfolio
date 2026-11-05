@@ -8,9 +8,12 @@
   color-scheme: dark;
 
   /* --- Type -------------------------------------------------------------- */
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  /* Geist + Geist Mono: one type system drawn for product/developer UI, so the
+     sans and the monospace share proportions and punctuation. The sans carries
+     body copy and headings; the mono is reserved for terminal chrome. */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
     Consolas, "Liberation Mono", monospace;
 
   /* Fluid type scale: min at ~320px, max at ~1440px */

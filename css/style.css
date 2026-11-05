@@ -40,6 +40,9 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   letter-spacing: -0.005em;
+  /* Keeps Geist crisp instead of heavy on dark backgrounds */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -47,10 +50,12 @@ h2,
 h3,
 h4 {
   color: var(--color-heading);
-  font-family: var(--font-mono);
+  /* Headings are UI, not terminal: Geist at tight tracking reads as product
+     type, which leaves the mono strictly for shell chrome. */
+  font-family: var(--font-sans);
   font-weight: 600;
   line-height: var(--leading-snug);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -246,7 +251,6 @@ code {
   color: var(--color-muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.01em;
 }
 
 .statusbar__item {
@@ -543,14 +547,59 @@ body.nav-open {
   padding: 0;
 }
 
-pre.terminal__body {
-  white-space: pre;
+/* Hero file block: one element per line so js/main.js can reveal the
+   `cat ~/profile.json` output in a fast stagger, like a file being read. */
+.file-render {
+  position: relative;
+  display: block;
+}
+
+.file-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* JSON nesting lives in the box model so the copied text stays clean */
+.file-line--indent {
+  padding-left: 2ch;
+}
+
+/* Scan bar that rides down the file while its lines land. Created by
+   js/main.js only, so it never exists when motion is reduced. */
+.file-render__scan {
+  position: absolute;
+  inset-inline: -0.5rem;
+  top: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgb(57 211 83 / 0.16),
+    rgb(57 211 83 / 0.05) 62%,
+    transparent
+  );
+  box-shadow: inset 2px 0 0 rgb(57 211 83 / 0.85);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (min-width: 48em) {
   .terminal__body {
     font-size: 0.875rem;
   }
+}
+
+/* --- 6a. Terminal typography -------------------------------------------- */
+/* Everything that reads as shell chrome shares one type treatment: Geist Mono
+   at tight tracking, antialiased so the small sizes stay sharp. Terminal
+   children inherit this, so listing rows, badges and prompts all match. */
+.terminal,
+.statusbar,
+.hero__role,
+.site-nav__list a:not(.btn) {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* --- 7. Hero ------------------------------------------------------------- */
@@ -675,6 +724,12 @@ pre.terminal__body {
 
 .section__title {
   font-size: var(--text-2xl);
+  /* SplitText gives every character its own box; balance would fight the
+     split, so the projects heading opts out (see js/animations.js). */
+}
+
+#projects-title {
+  text-wrap: initial;
 }
 
 .section__lead {
@@ -808,6 +863,9 @@ pre.terminal__body {
 }
 
 .project__desc {
+  /* Card prose is body copy, not chrome: sentence-case Geist reads far better
+     than mono at this size, while the surrounding labels stay monospaced. */
+  font-family: var(--font-sans);
   color: var(--color-muted);
   font-size: var(--text-sm);
 }
@@ -1073,9 +1131,99 @@ pre.terminal__body {
   .dot {
     animation: none;
   }
+
+  /* Nothing is scroll-linked, so the rail would never fill */
+  .scroll-progress {
+    display: none;
+  }
 }
 
+/* --- 11a. GSAP enhancement layer ----------------------------------------- */
+/* `html.gsap` is only added once js/animations.js boots and motion is welcome,
+   so everything below is progressive enhancement: the CSS-only version above
+   keeps working when GSAP is unavailable. */
 
+/* Scroll progress rail, sitting on the header's bottom border */
+.scroll-progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
 
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-blue) 60%,
+    var(--color-purple)
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
 
+/* Word wrappers injected by animations.js for the hero headline */
+.split-word,
+.split-word__inner {
+  display: inline-block;
+}
 
+/* Character wrappers injected by SplitText for the projects heading. Turning
+   kerning off stops the letter spacing from shifting once every character gets
+   its own inline box. */
+.split-char {
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+  will-change: opacity;
+}
+
+/* GSAP owns these properties now — dropping the CSS transitions stops the two
+   from fighting (double-eased movement, jittery tilt). */
+.gsap .reveal {
+  transition: none;
+}
+
+.gsap .btn {
+  transition: background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+/* The magnetic pull owns `transform`, so re-add the press with `translate`,
+   which composes with it instead of overriding it. */
+.gsap .btn:active {
+  translate: 0 1px;
+}
+
+.gsap .project {
+  position: relative;
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+/* Cursor-following spotlight, centred by --glow-x / --glow-y. The card already
+   clips its contents, so the overlay cannot bleed past the rounded corners. */
+.gsap .project::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    16rem 16rem at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgb(57 211 83 / 0.13),
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.gsap .project:hover::after {
+  opacity: 1;
+}

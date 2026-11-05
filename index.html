@@ -20,9 +20,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <!-- Two families only: Geist for UI/body copy, Geist Mono for terminal
+         chrome. Weights match what css/style.css actually uses (400/500/600). -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
     />
 
     <link rel="stylesheet" href="css/reset.css" />
@@ -33,7 +36,19 @@
     <script>
       document.documentElement.classList.add("js");
     </script>
+
+    <!-- GSAP enhancement layer. Core + ScrollTrigger are vendored locally (no
+         build step, works offline); SplitText is loaded from the CDN and stays
+         optional — the projects timeline falls back to whole-element fades when
+         it cannot load. Version is pinned to the vendored core (3.15.0). -->
+    <script src="js/vendor/gsap.min.js" defer></script>
+    <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"
+      defer
+    ></script>
     <script src="js/main.js" defer></script>
+    <script src="js/animations.js" defer></script>
   </head>
 
   <body id="top">
@@ -44,11 +59,6 @@
       <p class="statusbar__item statusbar__item--shell">
         <span aria-hidden="true">adam@portfolio:~$</span>
         <span class="visually-hidden">Adam's portfolio</span>
-      </p>
-
-      <p class="statusbar__item statusbar__item--status">
-        <span class="dot" aria-hidden="true"></span>
-        System Status: Online
       </p>
 
       <p
@@ -115,6 +125,11 @@
           </ul>
         </nav>
       </div>
+
+      <!-- Scroll progress rail, driven by js/animations.js -->
+      <div class="scroll-progress" aria-hidden="true">
+        <span class="scroll-progress__bar" data-scroll-progress></span>
+      </div>
     </header>
     <main id="main" tabindex="-1">
       <!-- ===================== Hero ===================== -->
@@ -124,7 +139,7 @@
             <p class="eyebrow reveal">// hello_world</p>
 
             <h1 class="hero__title reveal" id="hero-title">
-              Hi, I'm <span class="accent">Adam.</span>
+              Hi, I'm <span class="accent">Tagbo Adam Berlin.</span>
             </h1>
 
             <p
@@ -132,15 +147,17 @@
               aria-label="Aspiring AI/Software Engineer"
             >
               <span class="prompt" aria-hidden="true">&gt;</span>
-              <span class="hero__role-text" data-typing="Aspiring AI/Software Engineer"
-                >Aspiring AI/Software Engineer</span
+              <span class="hero__role-text">Junior AI/Software Engineer</span
               ><span class="cursor" aria-hidden="true"></span>
             </p>
 
             <p class="hero__lead reveal">
-              I build AI-powered applications and craft clean, modern UIs. I love
-              experimenting with new tech, from Python backends to React
-              animations.
+              I love experimenting with new tech
+              from Python backends to React animations.
+              But mostly, im a builder: If i see something
+              that annoys me, my first instinct is to build
+              a solution for it.
+            
             </p>
 
             <div class="hero__actions reveal">
@@ -181,19 +198,42 @@
                 <span class="terminal__path">adam@portfolio: ~/profile</span>
               </div>
 
-              <pre class="terminal__body"><span class="term-prompt">$</span> whoami
-adam
-
-<span class="term-prompt">$</span> cat ~/profile.json
-{
-  "role": "Aspiring AI/Software Engineer",
-  "focus": ["AI apps", "clean UI"],
-  "stack": ["Python", "FastAPI", "React"],
-  "building": "Remi",
-  "status": "online"
-}
-
-<span class="term-prompt">$</span> <span class="cursor cursor--inline" aria-hidden="true"></span></pre>
+              <!-- One block per line so js/main.js can render the profile like a
+                   file being read. All the text stays in the markup for no-JS. -->
+              <div class="terminal__body">
+                <span class="file-render" data-file-render>
+                  <span class="file-line"
+                    ><span class="term-prompt">$</span> whoami</span
+                  >
+                  <span class="file-line">adam</span>
+                  <span class="file-line">&nbsp;</span>
+                  <span class="file-line"
+                    ><span class="term-prompt">$</span> cat ~/profile.json</span
+                  >
+                  <span class="file-line">{</span>
+                  <span class="file-line file-line--indent"
+                    >"role": "Aspiring AI/Software Engineer",</span
+                  >
+                  <span class="file-line file-line--indent"
+                    >"focus": ["AI apps", "clean UI"],</span
+                  >
+                  <span class="file-line file-line--indent"
+                    >"stack": ["Python", "FastAPI", "React"],</span
+                  >
+                  <span class="file-line file-line--indent"
+                    >"building": "Remi",</span
+                  >
+                  <span class="file-line file-line--indent"
+                    >"status": "online"</span
+                  >
+                  <span class="file-line">}</span>
+                  <span class="file-line">&nbsp;</span>
+                  <span class="file-line"
+                    ><span class="term-prompt">$</span>
+                    <span class="cursor cursor--inline" aria-hidden="true"></span
+                  ></span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -205,8 +245,7 @@ adam
             <p class="section__kicker">~/projects</p>
             <h2 class="section__title" id="projects-title">Projects</h2>
             <p class="section__lead">
-              Two builds I keep coming back to — one shipped assistant, one final
-              year project.
+              My current projects I&rsquo;m working on:
             </p>
           </div>
 
@@ -454,15 +493,11 @@ adam
             >
           </li>
           <li>
-            <a href="mailto:adam.tagbo@gmail.com">email</a>
+            <a href="mailto:adamtagbo.berlin@gmail.com">email</a>
           </li>
           <li><a href="#top">back_to_top</a></li>
         </ul>
 
-        <p class="footer__status">
-          <span class="dot" aria-hidden="true"></span>
-          [ System Status: Online ]
-        </p>
       </div>
     </footer>
   </body>
