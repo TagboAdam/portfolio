@@ -27,6 +27,12 @@ Short, operational notes for whoever (or whichever agent) touches this next.
   Do not crop it (it is 475×473 and must keep its ratio).
 - **No terminal references.** No prompts, cursors, fake windows, shell paths,
   green, typewriter effects, or character-splitting text animation.
+- **No em dashes or en dashes in page copy.** Use a period, comma, colon or a
+  spaced hyphen. `design/check.py` fails the build if one appears.
+- **Icons come from the inlined Phosphor sprite only.**
+  `<svg class="icon"><use href="#i-..."/></svg>`; never hand-draw a glyph and
+  never add an icon font. Available symbols are declared at the top of
+  `index.html`; the sprite is validated by `design/check.py`.
 
 ## Asset rules
 

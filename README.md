@@ -17,13 +17,16 @@ The visual system lives in three documents:
 The short version:
 
 - **True black canvas** (`#000000`) with a silver bloom and 3.5% film grain;
-  black is structural — canvas, contact band, image vignette.
+  black is structural: canvas, contact band, image vignette.
 - **Geist only.** Geist Mono is demoted to small labels, captions and metadata.
-  No serif, no script, no terminal glyphs.
+  No serif, no script, no terminal glyphs, no em dashes.
 - **One cold accent** (`#cfe3ff`), capped at four uses on the whole page.
 - **One flourish:** the Lain still, feathered into the black on the right of the
-  hero — never boxed, never cropped.
+  hero. Never boxed, never cropped.
 - **Spec-sheet detail:** mono labels, hairline rules, indexed work rows.
+- **Components:** Phosphor icon sprite (MIT), bordered icon link rows, a
+  one-click "copy email" control with success state, and hover states that lift
+  the contact links out of the black instead of fading into it.
 - **Three interactions:** hero entrance, one-time section reveals, hover states.
   All gated by `prefers-reduced-motion`.
 
@@ -90,12 +93,13 @@ contrast of every text token. Exit code 0 means everything passed.
 
 | Area | State |
 | --- | --- |
-| Hero headline | **Placeholder** — Adam is writing his own line; marked in `index.html` |
+| Hero headline | Done: "I like to make things visually appealing" |
 | Hero image | Real asset, credited in the caption, personal non-commercial use |
 | Work rows (Remi, CampusConnect) | Copy written; links point at the GitHub profile |
 | About + watching row | Done (`silicon valley`, `black clover`) |
-| Contact | `adamtagbo.berlin@gmail.com` |
-| LinkedIn | Hidden — no real profile URL yet |
+| Contact | "Connect with me", icon link rows, one-click copy of `adamtagbo.berlin@gmail.com` |
+| Icons | Phosphor regular set (MIT), inlined as an SVG sprite, no remote icon requests |
+| LinkedIn | Hidden: no real profile URL yet |
 | Resume | Real PDF in `assets/resume.pdf` |
 | Retired | `js/animations.js` and `js/vendor/` (previous GSAP layer) are no longer loaded and can be deleted |
 | Unused assets | `assets/img/project-*.svg` are not referenced any more |

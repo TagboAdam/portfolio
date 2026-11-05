@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Adam — portfolio stylesheet
+   Adam, portfolio stylesheet
    Direction: quiet silver on true black.
    Sections:
      1. Base + atmosphere
@@ -150,7 +150,10 @@ strong {
 }
 
 .section__link {
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fg-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-mono);
@@ -191,6 +194,29 @@ strong {
 
 .skip-link:focus-visible {
   transform: translateY(0);
+}
+
+/* --- Icon components ------------------------------------------------------ */
+/* Phosphor Icons (MIT) are inlined as a symbol sprite; these two rules are the
+   whole icon system. */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  flex: none;
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.icon--sm {
+  width: 12px;
+  height: 12px;
 }
 
 /* --- 3. Header + navigation ---------------------------------------------- */
@@ -236,7 +262,7 @@ strong {
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: lowercase;
-  color: var(--muted);
+  color: var(--fg-2);
 }
 
 .site-nav__list {
@@ -259,7 +285,7 @@ strong {
 }
 
 .site-nav__resume {
-  color: var(--fg-2);
+  color: var(--fg);
 }
 
 .nav-toggle {
@@ -323,24 +349,12 @@ body.nav-open {
 }
 
 .eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   margin-bottom: 26px;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: lowercase;
-}
-
-.dot {
-  flex: none;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .hero__title {
@@ -371,12 +385,6 @@ body.nav-open {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-mono);
-}
-
-.hero__meta li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
 }
 
 /* The image: large, frameless, feathered into the black on every edge. */
@@ -498,8 +506,6 @@ body.nav-open {
 .row__arrow {
   justify-self: end;
   color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
   transition: color var(--dur-base) var(--ease),
     transform var(--dur-base) var(--ease);
 }
@@ -514,7 +520,7 @@ body.nav-open {
   align-items: center;
   gap: 8px;
   margin-top: 22px;
-  color: var(--muted);
+  color: var(--fg-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-mono);
@@ -625,8 +631,8 @@ body.nav-open {
 .contact__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: var(--space-12);
+  align-items: start;
+  gap: clamp(32px, 6vw, 96px);
 }
 
 .contact__title {
@@ -637,41 +643,102 @@ body.nav-open {
   line-height: 1.08;
 }
 
-.contact__note {
-  margin-top: 14px;
-  color: var(--meta);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-mono);
-}
-
-.contact__links {
+.contact__panel {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: stretch;
+  justify-self: end;
+  gap: 14px;
+  width: min(100%, 380px);
+}
+
+.contact-links {
+  display: grid;
   gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Link buttons: icon, label, directional arrow. This is the component that
+   keeps the contact links legible instead of fading into the black. */
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--fg-2);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-}
-
-.contact__links a {
-  color: var(--fg-2);
-  background-image: linear-gradient(var(--fg), var(--fg));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 1px;
-  padding-bottom: 3px;
+  letter-spacing: 0.02em;
   transition: color var(--dur-base) var(--ease),
-    background-size var(--dur-slow) var(--ease);
+    border-color var(--dur-base) var(--ease),
+    background-color var(--dur-base) var(--ease);
 }
 
-.contact__links a:hover,
-.contact__links a:focus-visible {
+.link-row:hover,
+.link-row:focus-visible {
   color: var(--fg);
-  background-size: 100% 1px;
+  border-color: var(--border-strong);
+  background: var(--surface);
+}
+
+.link-row__icon {
+  color: var(--muted);
+  transition: color var(--dur-base) var(--ease);
+}
+
+.link-row:hover .link-row__icon,
+.link-row:focus-visible .link-row__icon {
+  color: var(--accent);
+}
+
+.link-row__label {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.link-row__arrow {
+  color: var(--dim);
+  transition: color var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
+}
+
+.link-row:hover .link-row__arrow,
+.link-row:focus-visible .link-row__arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+/* Copy-email micro component: icon and label swap on success. */
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease);
+}
+
+.copy-email:hover,
+.copy-email:focus-visible,
+.copy-email[data-copied="true"] {
+  color: var(--fg);
+}
+
+.copy-email[data-copied="true"] .icon {
+  color: var(--accent);
 }
 
 /* --- 8. Footer ------------------------------------------------------------ */
@@ -701,6 +768,23 @@ body.nav-open {
 .footer__inner a:hover,
 .footer__inner a:focus-visible {
   color: var(--fg);
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer__icon-link {
+  display: inline-flex;
+  color: var(--muted);
+}
+
+.footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* --- 9. Reveal + motion --------------------------------------------------- */
@@ -806,11 +890,10 @@ body.nav-open {
     gap: 36px;
   }
 
-  .contact__links {
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px 24px;
+  .contact__panel {
+    justify-self: start;
+    width: 100%;
+    max-width: 420px;
   }
 }
 

@@ -34,7 +34,6 @@
   /* Budget: availability dot, focus ring, hover underline, project arrow.
      Never a fill, never a background, never body copy. */
   --accent: #cfe3ff;
-  --accent-soft: rgba(207, 227, 255, 0.12);
   --accent-ink: #000000;
 
   /* --- Colour: atmosphere -------------------------------------------------- */

@@ -170,6 +170,18 @@ def main():
         if found:
             failures.append("emoji in %s: %s" % (name, found))
 
+    # Copy hygiene: em dashes and en dashes are banned on the page
+    dash_lines = [line.strip() for line in page.splitlines() if "—" in line or "–" in line]
+    if dash_lines:
+        failures.append("em/en dash in page copy: %s" % dash_lines[:4])
+
+    # Icon sprite integrity: every <use href="#id"> must resolve to a symbol
+    symbol_ids = set(re.findall(r'<symbol[^>]*\sid="([^"]+)"', page))
+    use_ids = set(re.findall(r'<use[^>]*href="#([^"]+)"', page))
+    dangling = sorted(use_ids - symbol_ids)
+    if dangling:
+        failures.append("icon references without a symbol: %s" % dangling)
+
     tokens = read("css/tokens.css")
 
     def token(name):

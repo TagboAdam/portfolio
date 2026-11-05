@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adam — junior AI/software engineer</title>
+    <title>Adam, junior AI/software engineer</title>
     <meta
       name="description"
       content="Adam is a junior AI/software engineer building small tools with Python, FastAPI and React. Selected work, stack and contact."
@@ -38,11 +38,37 @@
   </head>
 
   <body id="top">
+    <!-- Icon set: Phosphor Icons (MIT), inlined so the page stays dependency
+         free. https://phosphoricons.com -->
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-envelope" viewBox="0 0 256 256">
+        <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z" />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 256 256">
+        <path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z" />
+      </symbol>
+      <symbol id="i-file" viewBox="0 0 256 256">
+        <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z" />
+      </symbol>
+      <symbol id="i-arrow-up-right" viewBox="0 0 256 256">
+        <path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
+      </symbol>
+      <symbol id="i-copy" viewBox="0 0 256 256">
+        <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 256 256">
+        <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z" />
+      </symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 256 256">
+        <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z" />
+      </symbol>
+    </svg>
+
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
       <div class="wrap header__inner">
-        <a class="brand" href="#top" aria-label="Adam — back to top">adam</a>
+        <a class="brand" href="#top" aria-label="Adam, back to top">adam</a>
 
         <button
           class="nav-toggle"
@@ -79,26 +105,21 @@
       <section class="hero" data-od-id="hero" aria-labelledby="hero-title">
         <div class="wrap hero__grid">
           <div class="hero__text">
-            <p class="eyebrow">
-              <span class="dot" aria-hidden="true"></span>junior ai / software
-              engineer
-            </p>
+            <p class="eyebrow">junior ai / software engineer</p>
 
-            <!-- Placeholder headline: Adam is writing his own line. -->
             <h1 class="hero__title" id="hero-title">
-              I build small tools that fix my own annoyances.
+              I like to make things visually appealing
             </h1>
 
             <p class="hero__lead">
-              Python and React, mostly. Right now I'm building a Telegram
-              reminder bot and an AI-assisted learning platform for my final
-              year.
+              Python and React, mostly. Right now: a Telegram reminder bot and a
+              learning platform for my final year.
             </p>
 
             <ul class="hero__meta">
-              <li><span class="dot" aria-hidden="true"></span>open to internships</li>
-              <li>python · fastapi · react</li>
-              <li>currently building remi</li>
+              <li>open to internships</li>
+              <li>python, fastapi, react</li>
+              <li>building remi</li>
             </ul>
           </div>
 
@@ -107,12 +128,12 @@
               src="assets/img/hero.jpg"
               width="475"
               height="473"
-              alt="Still from Serial Experiments Lain: a girl sits at a CRT monitor showing a Python script titled russian roulette dot py."
+              alt="Still from Serial Experiments Lain: a girl sits at a CRT monitor showing a Python script titled russian roulette.py."
               fetchpriority="high"
               decoding="async"
             />
             <figcaption class="hero__caption">
-              <span>still — serial experiments lain, 1998</span>
+              <span>still - serial experiments lain, 1998</span>
               <span>475 × 473</span>
             </figcaption>
           </figure>
@@ -129,8 +150,12 @@
               href="https://github.com/TagboAdam"
               target="_blank"
               rel="noopener me"
-              >all repos ↗</a
             >
+              all repos
+              <svg class="icon icon--sm" aria-hidden="true">
+                <use href="#i-arrow-up-right" />
+              </svg>
+            </a>
           </div>
 
           <ul class="rows">
@@ -148,9 +173,11 @@
               <p class="row__desc">
                 Telegram assistant that turns chat into scheduled reminders.
               </p>
-              <p class="row__tags">python · fastapi · react</p>
+              <p class="row__tags">python, fastapi, react</p>
               <p class="row__year">2026</p>
-              <span class="row__arrow" aria-hidden="true">↗</span>
+              <svg class="icon row__arrow" aria-hidden="true">
+                <use href="#i-arrow-up-right" />
+              </svg>
             </li>
 
             <li class="row reveal">
@@ -167,9 +194,11 @@
               <p class="row__desc">
                 An AI-assisted learning platform for students and teachers.
               </p>
-              <p class="row__tags">python · fastapi · react</p>
+              <p class="row__tags">python, fastapi, react</p>
               <p class="row__year">2026</p>
-              <span class="row__arrow" aria-hidden="true">↗</span>
+              <svg class="icon row__arrow" aria-hidden="true">
+                <use href="#i-arrow-up-right" />
+              </svg>
             </li>
           </ul>
 
@@ -178,8 +207,12 @@
             href="https://github.com/TagboAdam"
             target="_blank"
             rel="noopener me"
-            >more on github ↗</a
           >
+            more on github
+            <svg class="icon icon--sm" aria-hidden="true">
+              <use href="#i-arrow-up-right" />
+            </svg>
+          </a>
         </div>
       </section>
 
@@ -194,8 +227,8 @@
             <div class="about__body reveal">
               <h3 class="about__title">I'm Adam.</h3>
               <p>
-                Junior AI/software engineer. I learn by building — most of what
-                I know came from tools I wanted to exist and had to make myself.
+                Junior AI/software engineer. I learn by building. Most of what I
+                know came from tools I wanted to exist and had to make myself.
               </p>
               <p>
                 I'm in my final year, splitting time between school and two
@@ -236,30 +269,68 @@
       <section class="contact" id="contact" data-od-id="contact" aria-labelledby="contact-title">
         <div class="wrap contact__grid">
           <div>
-            <h2 class="contact__title" id="contact-title">Let's talk.</h2>
-            <p class="contact__note">open to internships — 2026</p>
+            <h2 class="contact__title" id="contact-title">Connect with me</h2>
           </div>
 
-          <ul class="contact__links">
-            <li>
-              <a href="mailto:adamtagbo.berlin@gmail.com"
-                >adamtagbo.berlin@gmail.com</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://github.com/TagboAdam"
-                target="_blank"
-                rel="noopener me"
-                >github.com/TagboAdam</a
-              >
-            </li>
-            <li>
-              <a href="assets/resume.pdf" target="_blank" rel="noopener"
-                >resume.pdf</a
-              >
-            </li>
-          </ul>
+          <div class="contact__panel">
+            <ul class="contact-links">
+              <li>
+                <a class="link-row" href="mailto:adamtagbo.berlin@gmail.com">
+                  <svg class="icon link-row__icon" aria-hidden="true">
+                    <use href="#i-envelope" />
+                  </svg>
+                  <span class="link-row__label">adamtagbo.berlin@gmail.com</span>
+                  <svg class="icon link-row__arrow" aria-hidden="true">
+                    <use href="#i-arrow-up-right" />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="link-row"
+                  href="https://github.com/TagboAdam"
+                  target="_blank"
+                  rel="noopener me"
+                >
+                  <svg class="icon link-row__icon" aria-hidden="true">
+                    <use href="#i-github" />
+                  </svg>
+                  <span class="link-row__label">github.com/TagboAdam</span>
+                  <svg class="icon link-row__arrow" aria-hidden="true">
+                    <use href="#i-arrow-up-right" />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="link-row"
+                  href="assets/resume.pdf"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg class="icon link-row__icon" aria-hidden="true">
+                    <use href="#i-file" />
+                  </svg>
+                  <span class="link-row__label">resume.pdf</span>
+                  <svg class="icon link-row__arrow" aria-hidden="true">
+                    <use href="#i-arrow-up-right" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+
+            <button
+              class="copy-email"
+              type="button"
+              data-copy-email="adamtagbo.berlin@gmail.com"
+            >
+              <svg class="icon" data-copy-icon aria-hidden="true">
+                <use href="#i-copy" />
+              </svg>
+              <span data-copy-label>copy email address</span>
+            </button>
+            <p class="visually-hidden" role="status" data-copy-status></p>
+          </div>
         </div>
       </section>
     </main>
@@ -267,7 +338,35 @@
     <footer class="site-footer">
       <div class="wrap footer__inner">
         <p>© <span id="year">2026</span> adam</p>
-        <p><a href="#top">back to top ↑</a></p>
+
+        <p class="footer__links">
+          <a
+            class="footer__icon-link"
+            href="https://github.com/TagboAdam"
+            target="_blank"
+            rel="noopener me"
+            aria-label="Adam on GitHub"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#i-github" />
+            </svg>
+          </a>
+          <a
+            class="footer__icon-link"
+            href="mailto:adamtagbo.berlin@gmail.com"
+            aria-label="Email Adam"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#i-envelope" />
+            </svg>
+          </a>
+          <a class="footer__top" href="#top">
+            back to top
+            <svg class="icon icon--sm" aria-hidden="true">
+              <use href="#i-arrow-up" />
+            </svg>
+          </a>
+        </p>
       </div>
     </footer>
   </body>

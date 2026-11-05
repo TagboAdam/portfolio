@@ -100,6 +100,84 @@
     }
   }
 
+  /* --- Copy email ------------------------------------------------------- */
+  /* A small piece of UI worth having: one click copies the address, swaps the
+     icon to a check for two seconds and announces the result to screen
+     readers. Falls back to a temporary textarea where the Clipboard API is
+     unavailable or denied. */
+  var copyButton = document.querySelector("[data-copy-email]");
+  var copyLabel = document.querySelector("[data-copy-label]");
+  var copyStatus = document.querySelector("[data-copy-status]");
+  var copyIcon = document.querySelector("[data-copy-icon] use");
+
+  if (copyButton && copyLabel && copyStatus) {
+    var copyResetTimer;
+
+    var setCopied = function (copied) {
+      copyButton.dataset.copied = copied ? "true" : "false";
+      copyLabel.textContent = copied ? "copied" : "copy email address";
+
+      if (copyIcon) {
+        copyIcon.setAttribute("href", copied ? "#i-check" : "#i-copy");
+      }
+
+      if (!copied) return;
+
+      copyStatus.textContent = "Email address copied to clipboard";
+      window.clearTimeout(copyResetTimer);
+      copyResetTimer = window.setTimeout(function () {
+        setCopied(false);
+      }, 2000);
+    };
+
+    var copyFailed = function () {
+      copyStatus.textContent = "Copy failed. Use the email link above.";
+    };
+
+    var legacyCopy = function (text) {
+      var field = document.createElement("textarea");
+      field.value = text;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.top = "-1000px";
+      document.body.appendChild(field);
+      field.select();
+
+      var ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (error) {
+        ok = false;
+      }
+
+      document.body.removeChild(field);
+      return ok;
+    };
+
+    copyButton.addEventListener("click", function () {
+      var email = copyButton.getAttribute("data-copy-email") || "";
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(
+          function () {
+            setCopied(true);
+          },
+          function () {
+            if (legacyCopy(email)) {
+              setCopied(true);
+            } else {
+              copyFailed();
+            }
+          }
+        );
+      } else if (legacyCopy(email)) {
+        setCopied(true);
+      } else {
+        copyFailed();
+      }
+    });
+  }
+
   /* --- Footer year ------------------------------------------------------- */
   var year = document.getElementById("year");
 

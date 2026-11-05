@@ -56,8 +56,11 @@ arrive, and the single cold accent is rationed to four moments.
 
 - [x] No raw hex outside `:root` (checked).
 - [x] Body/meta contrast ≥ 4.5:1; accent ≥ 4.5:1 (checked: 5.44–19.25).
-- [x] Accent used only for dot, focus ring, arrow hover, contact underline.
-- [x] No emoji, no terminal leftovers, no remote scripts (checked).
+- [x] Accent used only for focus ring, link-row hover icon/arrow, copy success.
+- [x] No emoji, no em or en dashes in page copy, no terminal leftovers, no
+      remote scripts (checked).
+- [x] Icon sprite integrity: every `<use href="#id">` resolves to a symbol
+      (checked).
 - [x] Every section has `data-od-id` and a resolving `aria-labelledby`.
 - [x] Every local link and asset resolves; images carry `alt` and intrinsics.
 - [x] One `h1`; heading order intact.

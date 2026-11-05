@@ -39,15 +39,16 @@ Black is structural, not decorative. Three surfaces, five ink levels, one accent
 | `--border-strong` | `rgba(255,255,255,.18)` | hover rules | hover only |
 | `--accent` | `#cfe3ff` | cold signal | 16.1:1 |
 
-**Accent budget (hard cap, four uses on the whole page):**
+**Accent budget (hard cap):**
 
-1. the availability dot in the hero meta row,
-2. the `:focus-visible` outline,
-3. the project arrow on row hover,
-4. the link underline on contact hover.
+1. the `:focus-visible` outline,
+2. the icon inside a contact link button on hover,
+3. the arrow inside a contact link button on hover,
+4. the check icon after "copy email address" succeeds.
 
-No accent fills, no accent backgrounds, no accent headings, no accent borders.
-The bloom is neutral white plus a 5% cold tint — never purple, never blue-violet.
+No accent fills, no accent backgrounds, no accent headings, no accent borders, no
+decorative status dots. The bloom is neutral white plus a 5% cold tint, never
+purple, never blue-violet.
 
 ## 3. Typography
 
@@ -102,19 +103,31 @@ Page order: hero → selected work → about + now → contact (black band) → 
 
 ## 6. Components
 
+- **Icons:** Phosphor (MIT), inlined as an SVG symbol sprite: envelope, GitHub,
+  file, arrow-up-right, copy, check, arrow-up. One family, one 16px size (12px
+  for inline arrows), `fill: currentColor` so icons inherit state colour.
 - **Header:** sticky, `color-mix(bg 78%, transparent)` + 12–14px backdrop blur,
   hairline appears only after 4px of scroll. Brand is mono `adam`.
-- **Nav:** mono 11px, `0.16em` tracking, lowercase; hover moves to `--fg`.
-  Mobile: 44×44 toggle, full-width panel under the header, `inert` on the page.
-- **Eyebrow:** accent dot + mono role line, `0.16em` tracking.
+- **Nav:** mono 11px, `0.16em` tracking, lowercase, `--fg-2` so it reads as
+  links rather than fading out; hover moves to `--fg`. Mobile: 44×44 toggle,
+  full-width panel under the header, `inert` on the page.
+- **Eyebrow:** mono role line only, `0.16em` tracking. No status dot.
 - **Work row:** index (mono, `--meta`), title with an underline that draws
-  left→right on hover, one-line description, stack list, year, arrow that
-  nudges `2px` and turns accent.
+  left→right on hover, one-line description, stack list (comma separated, no
+  middot chains), year, Phosphor arrow that nudges `2px` and turns accent.
+- **Link button (`link-row`):** icon + label + arrow in a 1px bordered row.
+  Rest: `--fg-2` on transparent. Hover: `--fg`, `--border-strong`, `--surface`
+  fill, accent icon and arrow. This is the component that keeps the contact
+  links from sinking into the black.
+- **Copy-email (`copy-email`):** ghost button under the link stack; on success
+  the copy icon swaps to a check, the label becomes `copied`, the button turns
+  accent, and a `role="status"` region announces "Email address copied to
+  clipboard" before resetting after 2s.
 - **Meta list:** `dt` mono label / `dd` value, hairline above every row.
 - **Now row:** label + comma-separated items, no pills, no boxes.
-- **Contact:** `Let's talk.` at `--text-2xl` against pure black; links are mono
-  with a drawn underline.
-- **Footer:** one mono line, one hairline.
+- **Contact:** `Connect with me` at `--text-3xl` against pure black, link stack
+  right-aligned on desktop, stacked left on mobile.
+- **Footer:** © line, GitHub and email icon links, back-to-top with arrow icon.
 - **Focus:** 2px `--accent` outline, `3px` offset, visible on black.
 
 ## 7. Motion & Interaction
@@ -139,9 +152,9 @@ Plain, specific, first person, no adjectives doing the work of facts.
 - Lead: what the person actually builds, in the stack they actually use.
 - Work rows: one sentence each, project + what it does. No metrics invented.
 - About: two short paragraphs, one of them concrete (final year, two projects).
-- Contact: `Let's talk.` and a real address.
-- Labels stay lowercase mono; body copy uses normal punctuation, em dashes
-  where a pause is earned, and no emoji anywhere.
+- Contact: `Connect with me` and a real address, plus a one-click copy control.
+- Labels stay lowercase mono; body copy uses normal punctuation and no em or en
+  dashes anywhere on the page, and no emoji.
 
 ## 9. Anti-patterns
 
@@ -156,6 +169,8 @@ Never ship any of these:
   forms, skill bars or percentages.
 - Content: "passionate", "seamless", "elevate", "10×", invented metrics,
   award claims, stock-photo portraits, emoji icons, lorem ipsum.
+- Punctuation and chrome: em dashes or en dashes anywhere on the page, middot
+  chains as separators, decorative status dots, section-numbering eyebrows.
 - Type: serif/script accent words, all-caps display headings, more than one
   display face, negative tracking on body copy.
 - Effects: heavy shadows, glassmorphism, pill-shaped cards, scroll hijacking,
