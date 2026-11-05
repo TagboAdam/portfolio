@@ -1,93 +1,107 @@
 /* ==========================================================================
-   Design tokens — single source of truth for colour, type, space, motion.
-   The site is dark-only by design (PRD §2): charcoal terminal canvas,
-   terminal-green accents, off-white copy, electric blue / purple hover states.
+   Design tokens — the single contract for the whole site.
+   Direction: "quiet silver on true black".
+   Values are adapted from OpenDesign's Linear-app dark system (near-black
+   canvas, luminance-stepped surfaces, silver body text, rgba white hairlines)
+   remapped to pure black plus one cold accent. No component may declare a
+   colour outside this block.
    ========================================================================== */
 
 :root {
   color-scheme: dark;
 
-  /* --- Type -------------------------------------------------------------- */
-  /* Geist + Geist Mono: one type system drawn for product/developer UI, so the
-     sans and the monospace share proportions and punctuation. The sans carries
-     body copy and headings; the mono is reserved for terminal chrome. */
+  /* --- Colour: surfaces --------------------------------------------------- */
+  /* Black is structural, not decorative: the page canvas, the contact band and
+     the vignette behind the hero image all sit at true black. */
+  --black: #000000;
+  --bg: #000000;
+  --surface: #0a0a0b;
+  --surface-2: #131316;
+
+  /* --- Colour: ink ramp --------------------------------------------------- */
+  --fg: #f4f5f7; /* headings, primary text */
+  --fg-2: #c3c7cf; /* body copy — silver */
+  --muted: #9096a0; /* secondary copy, descriptions */
+  --meta: #7d828b; /* mono labels, captions, metadata */
+  --dim: #5b6069; /* decorative only — never text below 14px */
+
+  /* --- Colour: lines ------------------------------------------------------ */
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-soft: rgba(255, 255, 255, 0.06);
+
+  /* --- Colour: the one accent --------------------------------------------- */
+  /* Budget: availability dot, focus ring, hover underline, project arrow.
+     Never a fill, never a background, never body copy. */
+  --accent: #cfe3ff;
+  --accent-soft: rgba(207, 227, 255, 0.12);
+  --accent-ink: #000000;
+
+  /* --- Colour: atmosphere -------------------------------------------------- */
+  --bloom: rgba(255, 255, 255, 0.085);
+  --bloom-cool: rgba(207, 227, 255, 0.05);
+  --grain-opacity: 0.035;
+  --image-saturate: 0.82;
+  --image-contrast: 1.04;
+  --image-brightness: 0.96;
+
+  /* --- Type ---------------------------------------------------------------- */
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
     Consolas, "Liberation Mono", monospace;
 
-  /* Fluid type scale: min at ~320px, max at ~1440px */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
-  --text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
-  --text-xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
-  --text-2xl: clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);
-  --text-3xl: clamp(2.125rem, 1.5rem + 3.2vw, 3.5rem);
+  --text-xs: 11px; /* mono labels, captions */
+  --text-sm: 12.5px; /* nav, meta rows */
+  --text-base: 16.5px; /* body */
+  --text-lg: 19px; /* project titles, about heading */
+  --text-xl: 24px; /* not used yet — reserved for case studies */
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-3xl: clamp(2rem, 1.55rem + 2.1vw, 3.25rem);
+  --text-display: clamp(2.6rem, 1.7rem + 4.4vw, 4.75rem);
 
-  --leading-tight: 1.1;
-  --leading-snug: 1.3;
-  --leading-normal: 1.65;
+  --leading-display: 1.02;
+  --leading-snug: 1.35;
+  --leading-body: 1.62;
 
-  /* --- Space ------------------------------------------------------------- */
-  --space-3xs: 0.25rem;
-  --space-2xs: 0.5rem;
-  --space-xs: 0.75rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 2.5rem;
-  --space-2xl: 3.5rem;
-  --space-3xl: 5rem;
+  --tracking-display: -0.032em;
+  --tracking-title: -0.015em;
+  --tracking-label: 0.16em;
+  --tracking-mono: 0.06em;
 
-  /* --- Layout ------------------------------------------------------------ */
-  --container: 70rem;
-  --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --statusbar-height: 2.25rem;
-  --header-height: 4.25rem;
+  /* --- Space --------------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
 
-  /* --- Shape ------------------------------------------------------------- */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1.125rem;
-  --radius-full: 999px;
+  /* --- Layout -------------------------------------------------------------- */
+  --container: 1180px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --header-height: 72px;
+  --section: clamp(72px, 10vh, 124px);
 
-  --shadow-md: 0 22px 48px -28px rgb(1 4 9 / 0.9);
-  --shadow-glow: 0 0 26px rgb(57 211 83 / 0.28);
+  /* --- Shape --------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 9999px;
 
-  /* --- Motion ------------------------------------------------------------ */
-  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
-  --duration-fast: 120ms;
-  --duration-base: 220ms;
-  --duration-slow: 520ms;
+  /* --- Motion -------------------------------------------------------------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 520ms;
+  --dur-media: 900ms;
 
-  /* --- Colour ------------------------------------------------------------ */
-  /* Canvas */
-  --color-bg: #0d1117;
-  --color-bg-deep: #010409;
-  --color-surface: #161b22;
-  --color-surface-muted: #1c2128;
-
-  /* Text */
-  --color-text: #c9d1d9;
-  --color-heading: #f0f6fc;
-  --color-muted: #8b949e;
-  --color-dim: #6e7681;
-
-  /* Lines */
-  --color-border: #21262d;
-  --color-border-strong: #30363d;
-
-  /* Terminal green (primary accent) */
-  --color-accent: #39d353;
-  --color-accent-hover: #56d364;
-  --color-accent-soft: #12261a;
-  --color-on-accent: #04180a;
-
-  /* Startup energy — hover states */
-  --color-blue: #58a6ff;
-  --color-purple: #a371f7;
-  --color-amber: #e3b341;
-
-  --color-focus: #39d353;
+  /* --- Layers -------------------------------------------------------------- */
+  --z-atmosphere: 0;
+  --z-content: 1;
+  --z-header: 50;
+  --z-overlay: 60;
 }

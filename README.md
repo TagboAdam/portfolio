@@ -1,104 +1,111 @@
 # Portfolio
 
-Personal portfolio for Adam — an aspiring AI/software engineer. A dark,
-terminal-flavoured one-pager built with **plain HTML, CSS and JavaScript**: no
-build step, no dependencies, deploys as static files.
+Personal portfolio for **Adam** — a junior AI/software engineer. A quiet,
+one-page dark portfolio built with **plain HTML, CSS and JavaScript**: no build
+step, no dependencies, deploys as static files.
+
+## Design
+
+The visual system lives in three documents:
+
+| File | Purpose |
+| --- | --- |
+| [DESIGN.md](DESIGN.md) | The nine-section visual contract (theme, colour, type, grid, layout, components, motion, voice, anti-patterns) |
+| [design/design-contract.md](design/design-contract.md) | Why this direction exists: evidence, keep/change/do-not-copy, risks, quality gate |
+| [design/implementation-handoff.md](design/implementation-handoff.md) | Operational constraints for the next person or agent touching the page |
+
+The short version:
+
+- **True black canvas** (`#000000`) with a silver bloom and 3.5% film grain;
+  black is structural — canvas, contact band, image vignette.
+- **Geist only.** Geist Mono is demoted to small labels, captions and metadata.
+  No serif, no script, no terminal glyphs.
+- **One cold accent** (`#cfe3ff`), capped at four uses on the whole page.
+- **One flourish:** the Lain still, feathered into the black on the right of the
+  hero — never boxed, never cropped.
+- **Spec-sheet detail:** mono labels, hairline rules, indexed work rows.
+- **Three interactions:** hero entrance, one-time section reveals, hover states.
+  All gated by `prefers-reduced-motion`.
 
 ## Stack
 
 | Layer | Choice |
 | --- | --- |
-| Markup | Semantic HTML5 |
+| Markup | Semantic HTML5, one `data-od-id` per section |
 | Styles | Hand-written CSS with custom-property design tokens |
-| Behaviour | Vanilla ES5-compatible JS, loaded with `defer` |
-| Fonts | Geist (body + headings) + Geist Mono (terminal chrome) via Google Fonts, with system fallbacks |
-| Icons / images | Hand-authored SVG, no external image services |
+| Behaviour | Vanilla ES5-compatible JS, `defer`, no dependencies |
+| Fonts | Geist + Geist Mono via Google Fonts, system fallbacks |
+| Images | Local SVG/JPG only, no remote images |
 | Hosting | GitHub Pages (or any static host) |
 
 ## Structure
 
 ```
 Portfolio/
-├─ index.html                 Single page: status bar, header, hero,
-│                             projects, about/stack, footer
+├─ index.html                 One page: header, hero, work, about/now, contact, footer
+├─ DESIGN.md                  Visual contract
+├─ design/
+│  ├─ design-contract.md      Decision record
+│  ├─ implementation-handoff.md
+│  └─ check.py                Automated audit (structure, links, contrast, leftovers)
 ├─ css/
 │  ├─ reset.css               Minimal modern reset
-│  ├─ tokens.css              Colour, type, space, motion tokens (dark-only)
-│  └─ style.css               Layout + components, mobile-first
+│  ├─ tokens.css              Colour, type, space, motion — the single contract
+│  └─ style.css               Layout + components (ten numbered sections)
 ├─ js/
-│  ├─ main.js                 Mobile nav, header scroll state, hero file
-│  │                          render, scroll reveal fallback, UTC clock,
-│  │                          footer year
-│  ├─ animations.js           GSAP layer: hero intro, #projects SplitText +
-│  │                          ScrollTrigger sequence, reveals, card tilt,
-│  │                          magnetic buttons, thumb parallax, progress rail
-│  └─ vendor/                 Vendored gsap.min.js + ScrollTrigger.min.js
-│                             (SplitText is CDN-only and optional)
+│  └─ main.js                 Nav, header hairline, reveals, footer year
 ├─ assets/
-│  ├─ img/
-│  │  ├─ project-remi.svg           Remi project thumbnail
-│  │  └─ project-campusconnect.svg  CampusConnect project thumbnail
-│  └─ resume.pdf              Resume PDF (real copy in place)
+│  ├─ img/hero.jpg            Hero still (Serial Experiments Lain, 1998)
+│  ├─ img/project-*.svg       Previous project thumbnails — no longer referenced
+│  └─ resume.pdf              Resume PDF
+├─ specimens/                 A/B hero specimens from the design round — safe to delete
 └─ README.md
 ```
-
-## Design notes
-
-- **Dark only by design.** `color-scheme: dark` is set in `tokens.css`; there is
-  no light theme or theme toggle. Canvas `#0d1117`, accent `#39d353`, copy
-  `#c9d1d9`, with electric blue / purple reserved for hover states.
-- **Re-theme in one place.** Every colour, size and easing lives in
-  `css/tokens.css`; change `--color-accent` and the whole site follows.
-- **Terminal motif.** Status bar with a live UTC clock, macOS-style terminal
-  windows, an `ls -l` directory listing above the project cards, `$` prompts and
-  a blinking block cursor.
-- **No-JS safe.** Reveal animations only hide content when `.js` is present, and
-  the hero terminal's profile is authored line by line in the markup — the
-  file-render effect only staggers those existing lines. `prefers-reduced-motion`
-  disables the render, the reveal and the blinking cursor.
-- **Typography.** Geist carries body copy and headings; Geist Mono is reserved
-  for terminal chrome — status bar, nav links, hero role, terminal windows. The
-  `#projects` heading is split into characters with GSAP SplitText (CDN-only) for
-  a typing reveal; if that file never loads, the same beats fade whole elements.
-- **Mobile nav** uses `inert` on the page behind the panel, closes on `Esc` and
-  on link activation, and resets when the viewport grows past the breakpoint.
 
 ## Local development
 
 No install step. Either:
 
 ```powershell
-# Option A — VS Code "Live Server" extension: right-click index.html → Open with Live Server
+# Option A — VS Code "Live Server": right-click index.html → Open with Live Server
 
 # Option B — one-off static server
-npx serve .
+python -m http.server 8123
 ```
 
-Then open the printed `http://localhost:...` URL. Opening `index.html` directly
-from the filesystem also works.
+Then open the printed URL. Opening `index.html` directly from the filesystem
+also works.
+
+Run the audit at any time:
+
+```powershell
+python design/check.py
+```
+
+It checks HTML nesting and IDs, local links and assets, image `alt`/intrinsic
+sizes, raw hex outside `:root`, terminal-era leftovers, emoji, and the WCAG
+contrast of every text token. Exit code 0 means everything passed.
 
 ## Content status
 
 | Area | State |
 | --- | --- |
-| Hero, status bar, nav, footer | Done |
-| Projects (Remi, CampusConnect) | Done — copy written, SVG thumbnails in place |
-| About + tech-stack terminal + quote | Done |
-| Scroll reveal, hero file render, live UTC clock | Done |
-| Responsive pass (390px → 1440px) | Done — no horizontal overflow |
-| `assets/resume.pdf` | Done — real PDF (76 KB) in place |
-| LinkedIn footer link | **Placeholder** — `linkedin.com/in/` needs a real profile URL |
-| Email address | `adam.tagbo@gmail.com` — confirm before publishing |
-| `[ view source ]` links | Both point at the GitHub profile, not individual repos |
+| Hero headline | **Placeholder** — Adam is writing his own line; marked in `index.html` |
+| Hero image | Real asset, credited in the caption, personal non-commercial use |
+| Work rows (Remi, CampusConnect) | Copy written; links point at the GitHub profile |
+| About + watching row | Done (`silicon valley`, `black clover`) |
+| Contact | `adamtagbo.berlin@gmail.com` |
+| LinkedIn | Hidden — no real profile URL yet |
+| Resume | Real PDF in `assets/resume.pdf` |
+| Retired | `js/animations.js` and `js/vendor/` (previous GSAP layer) are no longer loaded and can be deleted |
+| Unused assets | `assets/img/project-*.svg` are not referenced any more |
 
 ## Deploying
 
 ```powershell
 git add .
-git commit -m "feat: terminal portfolio"
-git branch -M main
-git remote add origin https://github.com/<you>/<repo>.git
-git push -u origin main
+git commit -m "feat: black silver portfolio"
+git push
 ```
 
 GitHub → **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**.
